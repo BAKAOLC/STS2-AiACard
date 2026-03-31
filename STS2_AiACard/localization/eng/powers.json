@@ -1,0 +1,23 @@
+{
+  "STS2_AI_A_CARD_POWER_VEILED_FORM_POWER.title": "Veiled Form",
+  "STS2_AI_A_CARD_POWER_VEILED_FORM_POWER.description": "Draw fewer cards each turn.",
+  "STS2_AI_A_CARD_POWER_VEILED_FORM_POWER.smartDescription": "Draw [blue]{Amount}[/blue] fewer {Amount:plural:card|cards} each turn.",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.title": "Requiem",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.description": "Whenever you play a card that costs at least [blue]2[/blue] Energy, gain [blue]1[/blue] Energy.",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.smartDescription": "Whenever you play a card that costs {Energy:energyIcons()} or more, gain {RequiemGain:energyIcons()}.",
+  "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.title": "Practice Makes Perfect",
+  "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.description": "Your *Sovereign Blade* cards in this combat are upgraded.",
+  "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.smartDescription": "Your *Sovereign Blade* cards in this combat are upgraded.",
+  "STS2_AI_A_CARD_POWER_MANIPULATION_REALITY_POWER.title": "Manipulate Reality",
+  "STS2_AI_A_CARD_POWER_MANIPULATION_REALITY_POWER.description": "Cards you add during combat are [gold]Upgraded[/gold] if they can be.",
+  "STS2_AI_A_CARD_POWER_MANIPULATION_REALITY_POWER.smartDescription": "Cards you add during combat are [gold]Upgraded[/gold] if they can be.",
+  "STS2_AI_A_CARD_POWER_HEAVEN_GIFT_POWER.title": "Heaven's Gift",
+  "STS2_AI_A_CARD_POWER_HEAVEN_GIFT_POWER.description": "At the end of combat, gain Gold.",
+  "STS2_AI_A_CARD_POWER_HEAVEN_GIFT_POWER.smartDescription": "At the end of combat, gain [blue]{Amount}[/blue] [gold]Gold[/gold].",
+  "STS2_AI_A_CARD_POWER_POST_COMBAT_HEAL_POWER.title": "Post-Combat Treatment",
+  "STS2_AI_A_CARD_POWER_POST_COMBAT_HEAL_POWER.description": "At the end of combat, heal HP.",
+  "STS2_AI_A_CARD_POWER_POST_COMBAT_HEAL_POWER.smartDescription": "At the end of combat, heal [blue]{Amount}[/blue] HP.",
+  "STS2_AI_A_CARD_POWER_SNAKE_ELO_POWER.title": "Snakebite ELO",
+  "STS2_AI_A_CARD_POWER_SNAKE_ELO_POWER.description": "Your Attacks became *Snake Bite*. When you win this combat, gain an extra card reward.",
+  "STS2_AI_A_CARD_POWER_SNAKE_ELO_POWER.smartDescription": "Your Attacks became *Snake Bite*. When you win this combat, gain an extra card reward."
+}

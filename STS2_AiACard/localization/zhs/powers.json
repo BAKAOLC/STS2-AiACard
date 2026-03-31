@@ -1,0 +1,23 @@
+{
+  "STS2_AI_A_CARD_POWER_VEILED_FORM_POWER.title": "隐秘形态",
+  "STS2_AI_A_CARD_POWER_VEILED_FORM_POWER.description": "每个回合开始时少抽牌。",
+  "STS2_AI_A_CARD_POWER_VEILED_FORM_POWER.smartDescription": "每个回合开始时少抽[blue]{Amount}[/blue]张牌。",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.title": "安魂曲",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.description": "打出耗能至少为[blue]2[/blue]的牌时，获得[blue]1[/blue]点能量。",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.smartDescription": "打出耗能大于等于{Energy:energyIcons()}的牌时，获得{RequiemGain:energyIcons()}。",
+  "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.title": "熟能生巧",
+  "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.description": "本场战斗中，你牌组中的「君王之剑」均已升级。",
+  "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.smartDescription": "本场战斗中，你牌组中的「君王之剑」均已升级。",
+  "STS2_AI_A_CARD_POWER_MANIPULATION_REALITY_POWER.title": "操控现实",
+  "STS2_AI_A_CARD_POWER_MANIPULATION_REALITY_POWER.description": "你在战斗中添加的、可升级的牌会被[gold]升级[/gold]。",
+  "STS2_AI_A_CARD_POWER_MANIPULATION_REALITY_POWER.smartDescription": "你在战斗中添加的、可升级的牌会被[gold]升级[/gold]。",
+  "STS2_AI_A_CARD_POWER_HEAVEN_GIFT_POWER.title": "上天的恩赐",
+  "STS2_AI_A_CARD_POWER_HEAVEN_GIFT_POWER.description": "战斗结束后，获得金币。",
+  "STS2_AI_A_CARD_POWER_HEAVEN_GIFT_POWER.smartDescription": "战斗结束后，获得 [blue]{Amount}[/blue] [gold]金币[/gold]。",
+  "STS2_AI_A_CARD_POWER_POST_COMBAT_HEAL_POWER.title": "准备治疗",
+  "STS2_AI_A_CARD_POWER_POST_COMBAT_HEAL_POWER.description": "战斗结束后，回复生命。",
+  "STS2_AI_A_CARD_POWER_POST_COMBAT_HEAL_POWER.smartDescription": "战斗结束后，回复 [blue]{Amount}[/blue] 点生命。",
+  "STS2_AI_A_CARD_POWER_SNAKE_ELO_POWER.title": "蛇咬 ELO",
+  "STS2_AI_A_CARD_POWER_SNAKE_ELO_POWER.description": "你的攻击牌已变为「蛇咬」。战斗胜利后，额外获得一组选卡奖励。",
+  "STS2_AI_A_CARD_POWER_SNAKE_ELO_POWER.smartDescription": "你的攻击牌已变为「蛇咬」。战斗胜利后，额外获得一组选卡奖励。"
+}

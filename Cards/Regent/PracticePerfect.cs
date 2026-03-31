@@ -1,0 +1,37 @@
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models.Cards;
+using STS2_AiACard.Powers;
+using STS2RitsuLib.Scaffolding.Content;
+
+namespace STS2_AiACard.Cards.Regent
+{
+    /// <summary>熟能生巧</summary>
+    public sealed class PracticePerfect() : ModCardTemplate(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate];
+
+        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+            [HoverTipFactory.FromCard<SovereignBlade>()];
+
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+
+        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        {
+            ArgumentNullException.ThrowIfNull(Owner.PlayerCombatState);
+            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+            if (!Owner.Creature.HasPower<SwordPracticePower>())
+                await PowerCmd.Apply<SwordPracticePower>(Owner.Creature, 1, Owner.Creature, this);
+            foreach (var c in Owner.PlayerCombatState.AllCards.OfType<SovereignBlade>())
+                CardCmd.Upgrade(c);
+        }
+
+        protected override void OnUpgrade()
+        {
+            EnergyCost.UpgradeBy(-1);
+        }
+    }
+}
