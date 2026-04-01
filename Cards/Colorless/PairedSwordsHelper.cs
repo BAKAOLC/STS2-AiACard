@@ -19,7 +19,7 @@ namespace STS2_AiACard.Cards.Colorless
         }
 
         /// <summary>
-        /// 若姐妹牌已在玩家任一战斗牌堆中（抽牌/手牌/弃牌/消耗等），则置入手牌顶；否则不生成新牌。
+        /// 若姐妹牌已在玩家任一战斗牌堆中（抽牌/手牌/弃牌/消耗等），则置入手牌；否则不生成新牌。
         /// </summary>
         internal static async Task MoveSisterToHandIfOwned<TSister>(Player owner, CardModel source)
             where TSister : CardModel

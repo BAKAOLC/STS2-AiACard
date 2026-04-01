@@ -42,7 +42,7 @@
   "STS2_AI_A_CARD_CARD_KING_DISLIKES_MATH_CARD.title": "王不喜算术",
   "STS2_AI_A_CARD_CARD_KING_DISLIKES_MATH_CARD.description": "当你没有足够{energyPrefix:energyIcons(1)}或足够[gold]辉星[/gold]来支付某张牌时，可用另一种资源垫付：[blue]1[/blue]{energyPrefix:energyIcons(1)}相当于[blue]2[/blue]个{singleStarIcon}；[blue]2[/blue]个{singleStarIcon}相当于[blue]1[/blue]{energyPrefix:energyIcons(1)}。",
   "STS2_AI_A_CARD_CARD_REN_SWORD_CARD.title": "仁之剑",
-  "STS2_AI_A_CARD_CARD_REN_SWORD_CARD.description": "造成{Damage:diff()}点伤害。本场战斗中所有「[gold]义之剑[/gold]」的伤害增加[blue]3[/blue]。不论在何处，将一张「[gold]义之剑[/gold]」置入你的[gold]手牌[/gold]。",
+  "STS2_AI_A_CARD_CARD_REN_SWORD_CARD.description": "造成{Damage:diff()}点伤害。\n本场所有[gold]义之剑[/gold]伤害[blue]+3[/blue]。若[gold]义之剑[/gold]已在牌堆中则置入手牌。",
   "STS2_AI_A_CARD_CARD_YI_SWORD_CARD.title": "义之剑",
-  "STS2_AI_A_CARD_CARD_YI_SWORD_CARD.description": "造成{Damage:diff()}点伤害。本场战斗中所有「[gold]仁之剑[/gold]」的伤害增加[blue]3[/blue]。不论在何处，将一张「[gold]仁之剑[/gold]」置入你的[gold]手牌[/gold]。"
+  "STS2_AI_A_CARD_CARD_YI_SWORD_CARD.description": "造成{Damage:diff()}点伤害。\n本场所有[gold]仁之剑[/gold]伤害[blue]+3[/blue]。若[gold]仁之剑[/gold]已在牌堆中则置入手牌。"
 }

@@ -42,7 +42,7 @@
   "STS2_AI_A_CARD_CARD_KING_DISLIKES_MATH_CARD.title": "The King Dislikes Math",
   "STS2_AI_A_CARD_CARD_KING_DISLIKES_MATH_CARD.description": "When you lack either enough {energyPrefix:energyIcons(1)} or enough [gold]Stars[/gold] to pay for a card, pay the rest with the other: [blue]1[/blue]{energyPrefix:energyIcons(1)} covers [blue]2[/blue]{singleStarIcon}; [blue]2[/blue]{singleStarIcon} cover [blue]1[/blue]{energyPrefix:energyIcons(1)}.",
   "STS2_AI_A_CARD_CARD_REN_SWORD_CARD.title": "Sword of Benevolence",
-  "STS2_AI_A_CARD_CARD_REN_SWORD_CARD.description": "Deal {Damage:diff()} damage. All [gold]Swords of Righteousness[/gold] deal [blue]3[/blue] more damage this combat. Add a [gold]Sword of Righteousness[/gold] to your [gold]Hand[/gold] from anywhere.",
+  "STS2_AI_A_CARD_CARD_REN_SWORD_CARD.description": "Deal {Damage:diff()} damage.\nEvery [gold]Sword of Righteousness[/gold] deals [blue]3[/blue] more damage this combat. If a [gold]Sword of Righteousness[/gold] is in a pile, add it to your [gold]Hand[/gold].",
   "STS2_AI_A_CARD_CARD_YI_SWORD_CARD.title": "Sword of Righteousness",
-  "STS2_AI_A_CARD_CARD_YI_SWORD_CARD.description": "Deal {Damage:diff()} damage. All [gold]Swords of Benevolence[/gold] deal [blue]3[/blue] more damage this combat. Add a [gold]Sword of Benevolence[/gold] to your [gold]Hand[/gold] from anywhere."
+  "STS2_AI_A_CARD_CARD_YI_SWORD_CARD.description": "Deal {Damage:diff()} damage.\nEvery [gold]Sword of Benevolence[/gold] deals [blue]3[/blue] more damage this combat. If a [gold]Sword of Benevolence[/gold] is in a pile, add it to your [gold]Hand[/gold]."
 }

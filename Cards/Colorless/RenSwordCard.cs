@@ -1,16 +1,20 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Colorless
 {
-    /// <summary>仁之剑：打出时强化义之剑伤害；若义之剑已在己方任一战斗牌堆中则置入手牌顶。</summary>
+    /// <summary>仁之剑：打出时强化义之剑伤害；若义之剑已在己方任一战斗牌堆中则置入手牌。</summary>
     public sealed class RenSwordCard() : ModCardTemplate(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
+        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+            HoverTipFactory.FromCardWithCardHoverTips<YiSwordCard>();
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new DamageVar(0m, ValueProp.Move)];
