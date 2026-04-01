@@ -30,7 +30,6 @@ namespace STS2_AiACard
             try
             {
                 RitsuLibFramework.EnsureGodotScriptsRegistered(Assembly.GetExecutingAssembly(), Logger);
-                AiACardContentRegistrar.RegisterAll();
 
                 var kingMathPatcher = RitsuLibFramework.CreatePatcher(Const.ModId, "king_dislikes_math", "王不喜算术");
                 kingMathPatcher.RegisterPatch<KingDislikesMathHasEnoughResourcesPatch>();
@@ -51,6 +50,8 @@ namespace STS2_AiACard
                         () => IsModActive = false,
                         "剑花纷飞与剑圣合并补丁未能应用，本 Mod 已禁用。"))
                     return;
+
+                AiACardContentRegistrar.RegisterAll();
 
                 IsModActive = true;
                 Logger.Info("Mod initialization complete - Mod is now ACTIVE");

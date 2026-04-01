@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
@@ -18,8 +19,13 @@ namespace STS2_AiACard.Patches
         public static ModPatchTarget[] GetTargets() =>
             [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterPowerAmountChanged))];
 
-        public static bool Prefix(SwordSagePower __instance, PowerModel power) =>
-            BlossomBladesPower.HarmonyPrefixSwordSageAfterPowerAmountChanged(__instance, power);
+        public static bool Prefix(SwordSagePower __instance, PowerModel power, ref Task __result)
+        {
+            if (BlossomBladesPower.HarmonyPrefixSwordSageAfterPowerAmountChanged(__instance, power))
+                return true;
+            __result = Task.CompletedTask;
+            return false;
+        }
 
         public static void Postfix(SwordSagePower __instance, PowerModel power) =>
             BlossomBladesPower.HarmonyAfterSwordSagePowerAmountChanged(__instance, power);
@@ -35,8 +41,13 @@ namespace STS2_AiACard.Patches
         public static ModPatchTarget[] GetTargets() =>
             [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterCardEnteredCombat))];
 
-        public static bool Prefix(SwordSagePower __instance, CardModel card) =>
-            BlossomBladesPower.HarmonyPrefixSwordSageAfterCardEnteredCombat(__instance, card);
+        public static bool Prefix(SwordSagePower __instance, CardModel card, ref Task __result)
+        {
+            if (BlossomBladesPower.HarmonyPrefixSwordSageAfterCardEnteredCombat(__instance, card))
+                return true;
+            __result = Task.CompletedTask;
+            return false;
+        }
 
         public static void Postfix(SwordSagePower __instance, CardModel card) =>
             BlossomBladesPower.HarmonyAfterSwordSageCardEnteredCombat(__instance, card);
@@ -52,10 +63,15 @@ namespace STS2_AiACard.Patches
         public static ModPatchTarget[] GetTargets() =>
             [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterRemoved))];
 
-        public static bool Prefix(SwordSagePower __instance, Creature oldOwner) =>
-            BlossomBladesPower.HarmonyPrefixSwordSageAfterRemoved(oldOwner);
+        public static bool Prefix(Creature oldOwner, ref Task __result)
+        {
+            if (BlossomBladesPower.HarmonyPrefixSwordSageAfterRemoved(oldOwner))
+                return true;
+            __result = Task.CompletedTask;
+            return false;
+        }
 
-        public static void Postfix(SwordSagePower __instance, Creature oldOwner) =>
+        public static void Postfix(Creature oldOwner) =>
             BlossomBladesPower.HarmonyAfterSwordSageRemoved(oldOwner);
     }
 }
