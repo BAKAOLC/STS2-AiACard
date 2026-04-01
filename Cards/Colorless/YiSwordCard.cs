@@ -7,7 +7,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Colorless
 {
-    /// <summary>义之剑：打出时强化仁之剑伤害并将仁之剑置入手牌。</summary>
+    /// <summary>义之剑：打出时强化仁之剑伤害；若仁之剑已在己方任一战斗牌堆中则置入手牌顶。</summary>
     public sealed class YiSwordCard() : ModCardTemplate(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -27,7 +27,7 @@ namespace STS2_AiACard.Cards.Colorless
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
-            await PairedSwordsHelper.MoveSisterToHandOrCreate<RenSwordCard>(choiceContext, Owner, this);
+            await PairedSwordsHelper.MoveSisterToHandIfOwned<RenSwordCard>(Owner, this);
         }
 
         protected override void OnUpgrade()
