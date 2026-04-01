@@ -79,6 +79,47 @@ namespace STS2_AiACard.Powers
             return Task.CompletedTask;
         }
 
+        public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier,
+            CardModel? cardSource)
+        {
+            if (power is not SwordSagePower sage || sage.Owner != Owner)
+                return Task.CompletedTask;
+            RefreshAllSovereignBladesMerged(Owner, sage.Amount);
+            return Task.CompletedTask;
+        }
+
+        /// <summary>Harmony Prefix：存在剑花且本次会执行剑圣改段数时返回 false，跳过原版 <see cref="SwordSagePower.AfterPowerAmountChanged"/> 内的 SetRepeats，避免监听顺序导致盖成 Amount+1。</summary>
+        internal static bool HarmonyPrefixSwordSageAfterPowerAmountChanged(SwordSagePower sageInstance,
+            PowerModel power)
+        {
+            if (power is not SwordSagePower || power.Owner != sageInstance.Owner)
+                return true;
+            if (sageInstance.Owner.GetPower<BlossomBladesPower>() is null)
+                return true;
+            return false;
+        }
+
+        /// <summary>Harmony Prefix：同上，针对 <see cref="SwordSagePower.AfterCardEnteredCombat"/>。</summary>
+        internal static bool HarmonyPrefixSwordSageAfterCardEnteredCombat(SwordSagePower sageInstance,
+            CardModel card)
+        {
+            if (card.Owner != sageInstance.Owner.Player)
+                return true;
+            if (card is not SovereignBlade)
+                return true;
+            if (sageInstance.Owner.GetPower<BlossomBladesPower>() is null)
+                return true;
+            return false;
+        }
+
+        /// <summary>Harmony Prefix：同上，针对 <see cref="SwordSagePower.AfterRemoved"/>。</summary>
+        internal static bool HarmonyPrefixSwordSageAfterRemoved(Creature oldOwner)
+        {
+            if (oldOwner.GetPower<BlossomBladesPower>() is null)
+                return true;
+            return false;
+        }
+
         /// <summary>Harmony Postfix：紧跟原版 <see cref="SwordSagePower.AfterPowerAmountChanged" />。</summary>
         internal static void HarmonyAfterSwordSagePowerAmountChanged(SwordSagePower sageInstance, PowerModel power)
         {
