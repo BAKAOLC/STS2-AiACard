@@ -14,7 +14,7 @@ namespace STS2_AiACard.Cards.Ironclad
     public sealed class HollowDebt() : ModCardTemplate(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
     {
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            [HoverTipFactory.FromCard<Beckon>()];
+            [HoverTipFactory.FromCard<Toxic>()];
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new DamageVar(4m, ValueProp.Move)];
@@ -37,37 +37,36 @@ namespace STS2_AiACard.Cards.Ironclad
 
             await attack.Execute(choiceContext);
 
-            var healHp = attack.Results.Sum(r => r.UnblockedDamage + r.OverkillDamage);
+            var healHp = attack.Results.Sum(r => r.UnblockedDamage);
             if (healHp > 0)
                 await CreatureCmd.Heal(Owner.Creature, healHp);
 
-            var handPile = PileType.Hand.GetPile(Owner);
-            var deficit = Math.Max(0, Const.CombatHandMax - handPile.Cards.Count);
-            for (var i = 0; i < deficit; i++)
+            for (var i = 0; i < 2; i++)
             {
-                var token = CombatState.CreateCard<Beckon>(Owner);
-                var added = await CardPileCmd.AddGeneratedCardToCombat(token, PileType.Hand, true);
-                if (!added.success || handPile.Cards.Count >= Const.CombatHandMax)
-                    break;
+                var toHand = CombatState.CreateCard<Toxic>(Owner);
+                CardCmd.ApplyKeyword(toHand, CardKeyword.Ethereal);
+                await CardPileCmd.AddGeneratedCardToCombat(toHand, PileType.Hand, true);
             }
 
-            var drawDiscard = new List<CardPileAddResult>(6);
-            for (var i = 0; i < 3; i++)
+            var drawDiscardPreview = new List<CardPileAddResult>(4);
+            for (var i = 0; i < 2; i++)
             {
-                var toDraw = CombatState.CreateCard<Beckon>(Owner);
-                drawDiscard.Add(await CardPileCmd.AddGeneratedCardToCombat(toDraw, PileType.Draw, true,
+                var toDraw = CombatState.CreateCard<Toxic>(Owner);
+                CardCmd.ApplyKeyword(toDraw, CardKeyword.Ethereal);
+                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDraw, PileType.Draw, true,
                     CardPilePosition.Random));
             }
 
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < 2; i++)
             {
-                var toDiscard = CombatState.CreateCard<Beckon>(Owner);
-                drawDiscard.Add(await CardPileCmd.AddGeneratedCardToCombat(toDiscard, PileType.Discard, true));
+                var toDiscard = CombatState.CreateCard<Toxic>(Owner);
+                CardCmd.ApplyKeyword(toDiscard, CardKeyword.Ethereal);
+                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDiscard, PileType.Discard, true));
             }
 
-            if (LocalContext.IsMe(Owner))
+            if (LocalContext.IsMe(Owner) && drawDiscardPreview.Count > 0)
             {
-                CardCmd.PreviewCardPileAdd(drawDiscard);
+                CardCmd.PreviewCardPileAdd(drawDiscardPreview);
                 await Cmd.Wait(1f);
             }
         }

@@ -2,7 +2,7 @@
   "STS2_AI_A_CARD_CARD_GNAW_BITE.title": "Gnaw",
   "STS2_AI_A_CARD_CARD_GNAW_BITE.description": "Deal {Damage:diff()} damage.\nHeal {Heal:diff()} HP.",
   "STS2_AI_A_CARD_CARD_HOLLOW_DEBT.title": "Hollow Debt",
-  "STS2_AI_A_CARD_CARD_HOLLOW_DEBT.description": "Deal {Damage:diff()} damage to ALL enemies.\nHeal HP equal to unblocked damage dealt.\nAdd [gold]Beckon[/gold] into your [gold]Hand[/gold] until it is full.\nShuffle 3 [gold]Beckon[/gold] into your [gold]Draw Pile[/gold] and add 3 [gold]Beckon[/gold] into your [gold]Discard Pile[/gold].",
+  "STS2_AI_A_CARD_CARD_HOLLOW_DEBT.description": "Deal {Damage:diff()} damage to ALL enemies.\nHeal HP equal to unblocked damage dealt.\nAdd 2 [gold]Toxic[/gold] cards with [gold]Ethereal[/gold] each to your [gold]Hand[/gold], [gold]Draw Pile[/gold], and [gold]Discard Pile[/gold].",
   "STS2_AI_A_CARD_CARD_MALICE_SPREAD.title": "Malice Spread",
   "STS2_AI_A_CARD_CARD_MALICE_SPREAD.description": "Apply X{IfUpgraded:show:+1} [gold]Weak[/gold] and X{IfUpgraded:show:+1} [gold]Vulnerable[/gold] to ALL enemies.",
   "STS2_AI_A_CARD_CARD_VEILED_FORM.title": "Veiled Form",

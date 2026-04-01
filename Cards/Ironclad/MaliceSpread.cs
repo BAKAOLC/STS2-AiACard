@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard.Cards.Ironclad
 {
     /// <summary>恶意弥漫</summary>
-    public sealed class MaliceSpread() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies)
+    public sealed class MaliceSpread() : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         protected override bool HasEnergyCostX => true;
 

@@ -2,7 +2,7 @@
   "STS2_AI_A_CARD_CARD_GNAW_BITE.title": "啃咬",
   "STS2_AI_A_CARD_CARD_GNAW_BITE.description": "造成{Damage:diff()}点伤害。\n回复{Heal:diff()}点生命。",
   "STS2_AI_A_CARD_CARD_HOLLOW_DEBT.title": "虚妄代偿",
-  "STS2_AI_A_CARD_CARD_HOLLOW_DEBT.description": "对所有敌人造成{Damage:diff()}点伤害。\n按造成的未被格挡伤害量回复生命。\n将「呼唤」置入你的[gold]手牌[/gold]直到手牌补满。\n将3张「呼唤」洗入你的[gold]抽牌堆[/gold]，并将3张「呼唤」置入你的[gold]弃牌堆[/gold]。",
+  "STS2_AI_A_CARD_CARD_HOLLOW_DEBT.description": "对所有敌人造成{Damage:diff()}点伤害。\n按造成的未被格挡伤害量回复生命。\n往你的[gold]手牌[/gold]、[gold]抽牌堆[/gold]、[gold]弃牌堆[/gold]各添加2张带[gold]虚无[/gold]的「毒素」。",
   "STS2_AI_A_CARD_CARD_MALICE_SPREAD.title": "恶意弥漫",
   "STS2_AI_A_CARD_CARD_MALICE_SPREAD.description": "给予所有敌人X{IfUpgraded:show:+1}层[gold]虚弱[/gold]与X{IfUpgraded:show:+1}层[gold]易伤[/gold]。",
   "STS2_AI_A_CARD_CARD_VEILED_FORM.title": "隐秘形态",

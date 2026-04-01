@@ -12,8 +12,8 @@ namespace STS2_AiACard.Cards.Ironclad
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new DamageVar(5m, ValueProp.Move),
-            new HealVar(1m),
+            new DamageVar(6m, ValueProp.Move),
+            new HealVar(2m),
         ];
 
         public override CardAssetProfile AssetProfile =>
@@ -32,7 +32,7 @@ namespace STS2_AiACard.Cards.Ironclad
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(1m);
+            DynamicVars.Damage.UpgradeValueBy(3m);
             DynamicVars.Heal.UpgradeValueBy(1m);
         }
     }
