@@ -1,6 +1,5 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using STS2_AiACard;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
@@ -12,15 +11,17 @@ namespace STS2_AiACard.Patches
     /// <summary>王不喜算术：辉星不足时用能量垫付；与 <see cref="KingDislikesMathPower" /> 及原版能量→辉星逻辑配合。</summary>
     internal static class KingDislikesMathResourceLogic
     {
-        internal static bool HasKingMath(Player? player) =>
-            player?.Creature.GetPower<KingDislikesMathPower>() != null;
+        internal static bool HasKingMath(Player? player)
+        {
+            return player?.Creature.GetPower<KingDislikesMathPower>() != null;
+        }
 
         internal static bool HasEnoughWithStarToEnergySubstitution(PlayerCombatState pcs, CardModel card)
         {
-            int e = Math.Max(0, card.EnergyCost.GetWithModifiers(CostModifiers.All));
-            int s = Math.Max(0, card.GetStarCostWithModifiers());
-            int E = pcs.Energy;
-            int S = pcs.Stars;
+            var e = Math.Max(0, card.EnergyCost.GetWithModifiers(CostModifiers.All));
+            var s = Math.Max(0, card.GetStarCostWithModifiers());
+            var E = pcs.Energy;
+            var S = pcs.Stars;
 
             if (e > E && card.CombatState != null &&
                 Hook.ShouldPayExcessEnergyCostWithStars(card.CombatState, card.Owner))
@@ -73,9 +74,9 @@ namespace STS2_AiACard.Patches
         {
             var pcs = card.Owner.PlayerCombatState!;
             var combatState = card.CombatState!;
-            int energy = pcs.Energy;
-            int energyToSpend = card.EnergyCost.GetAmountToSpend();
-            int starsToSpend = Math.Max(0, card.GetStarCostWithModifiers());
+            var energy = pcs.Energy;
+            var energyToSpend = card.EnergyCost.GetAmountToSpend();
+            var starsToSpend = Math.Max(0, card.GetStarCostWithModifiers());
 
             if (energyToSpend > energy && Hook.ShouldPayExcessEnergyCostWithStars(combatState, card.Owner))
             {
@@ -105,15 +106,19 @@ namespace STS2_AiACard.Patches
 
         public static string Description => "王不喜算术：辉星不足时允许用能量支付（与可打出判定一致）";
 
-        public static ModPatchTarget[] GetTargets() =>
-            [new(typeof(PlayerCombatState), nameof(PlayerCombatState.HasEnoughResourcesFor))];
+        public static ModPatchTarget[] GetTargets()
+        {
+            return [new(typeof(PlayerCombatState), nameof(PlayerCombatState.HasEnoughResourcesFor))];
+        }
 
         public static void Postfix(
             PlayerCombatState __instance,
             CardModel card,
             ref UnplayableReason reason,
-            ref bool __result) =>
+            ref bool __result)
+        {
             KingDislikesMathResourceLogic.ApplyHasEnoughPostfix(__instance, card, ref reason, ref __result);
+        }
     }
 
     /// <summary>Prefix：<see cref="CardModel.SpendResources" />。</summary>
@@ -123,10 +128,14 @@ namespace STS2_AiACard.Patches
 
         public static string Description => "王不喜算术：扣费时应用辉星→能量换算";
 
-        public static ModPatchTarget[] GetTargets() =>
-            [new(typeof(CardModel), nameof(CardModel.SpendResources))];
+        public static ModPatchTarget[] GetTargets()
+        {
+            return [new(typeof(CardModel), nameof(CardModel.SpendResources))];
+        }
 
-        public static bool Prefix(CardModel __instance, ref Task<(int, int)> __result) =>
-            KingDislikesMathResourceLogic.SpendResourcesPrefix(__instance, ref __result);
+        public static bool Prefix(CardModel __instance, ref Task<(int, int)> __result)
+        {
+            return KingDislikesMathResourceLogic.SpendResourcesPrefix(__instance, ref __result);
+        }
     }
 }

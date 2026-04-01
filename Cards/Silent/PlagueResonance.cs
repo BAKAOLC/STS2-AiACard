@@ -46,7 +46,7 @@ namespace STS2_AiACard.Cards.Silent
             if (toDiscard > 0)
             {
                 var picked = await CardSelectCmd.FromHandForDiscard(choiceContext, Owner,
-                    new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, toDiscard), null, this);
+                    new(CardSelectorPrefs.DiscardSelectionPrompt, toDiscard), null, this);
                 await CardCmd.Discard(choiceContext, picked);
             }
 

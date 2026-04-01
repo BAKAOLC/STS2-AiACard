@@ -19,7 +19,8 @@ namespace STS2_AiACard.Cards.Colorless
             }
         }
 
-        internal static async Task MoveSisterToHandOrCreate<TSister>(PlayerChoiceContext ctx, Player owner, CardModel source)
+        internal static async Task MoveSisterToHandOrCreate<TSister>(PlayerChoiceContext ctx, Player owner,
+            CardModel source)
             where TSister : CardModel, new()
         {
             ArgumentNullException.ThrowIfNull(owner.PlayerCombatState);

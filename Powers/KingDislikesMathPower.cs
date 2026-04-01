@@ -10,7 +10,9 @@ namespace STS2_AiACard.Powers
 
         public override PowerStackType StackType => PowerStackType.Single;
 
-        public override bool ShouldPayExcessEnergyCostWithStars(Player player) =>
-            Owner.Player == player;
+        public override bool ShouldPayExcessEnergyCostWithStars(Player player)
+        {
+            return Owner.Player == player;
+        }
     }
 }

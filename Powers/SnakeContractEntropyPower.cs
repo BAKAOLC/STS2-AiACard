@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -8,7 +7,7 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 namespace STS2_AiACard.Powers
 {
     /// <summary>
-    /// 异蛇契约：与「混乱」类似，但额外将带固定辉星消耗的牌在本场战斗内的辉星消耗随机为 0～4。
+    ///     异蛇契约：与「混乱」类似，但额外将带固定辉星消耗的牌在本场战斗内的辉星消耗随机为 0～4。
     /// </summary>
     public sealed class SnakeContractEntropyPower : AiACardPowerBase
     {

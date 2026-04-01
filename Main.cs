@@ -41,6 +41,17 @@ namespace STS2_AiACard
                         "王不喜算术相关补丁未能应用，本 Mod 已禁用。"))
                     return;
 
+                var blossomSagePatcher =
+                    RitsuLibFramework.CreatePatcher(Const.ModId, "blossom_blades_sword_sage", "剑花与剑圣");
+                blossomSagePatcher.RegisterPatch<BlossomBladesSwordSageAfterPowerAmountPatch>();
+                blossomSagePatcher.RegisterPatch<BlossomBladesSwordSageAfterCardEnteredCombatPatch>();
+                blossomSagePatcher.RegisterPatch<BlossomBladesSwordSageAfterRemovedPatch>();
+                if (!RitsuLibFramework.ApplyRequiredPatcher(
+                        blossomSagePatcher,
+                        () => IsModActive = false,
+                        "剑花纷飞与剑圣合并补丁未能应用，本 Mod 已禁用。"))
+                    return;
+
                 IsModActive = true;
                 Logger.Info("Mod initialization complete - Mod is now ACTIVE");
             }

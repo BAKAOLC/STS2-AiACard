@@ -19,13 +19,11 @@ namespace STS2_AiACard.Cards.Silent
             get
             {
                 if (IsUpgraded)
-                {
                     return
                     [
                         HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
                         HoverTipFactory.FromPower<DrawCardsNextTurnPower>(),
                     ];
-                }
 
                 return [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
             }
