@@ -9,7 +9,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard.Cards.Regent
 {
     /// <summary>剑花纷飞</summary>
-    public sealed class BlossomBlades() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public sealed class BlossomBlades() : ModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

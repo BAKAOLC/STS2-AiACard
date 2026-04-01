@@ -15,8 +15,6 @@
   "STS2_AI_A_CARD_CARD_PRACTICE_PERFECT.description": "For this combat, [gold]Upgrade[/gold] ALL your [gold]Sovereign Blade[/gold] cards.",
   "STS2_AI_A_CARD_CARD_BLOSSOM_BLADES.title": "Blossom of Blades",
   "STS2_AI_A_CARD_CARD_BLOSSOM_BLADES.description": "For this combat, your [gold]Sovereign Blades[/gold] deal [blue]6[/blue] damage per hit. Hits [blue]1[/blue] + [blue]1[/blue] for every [blue]10[/blue] damage on the blade (before this effect). [gold]Forge[/gold] no longer increases their damage; every [blue]10[/blue] [gold]Forged[/gold] grants [blue]1[/blue] additional hit instead.",
-  "STS2_AI_A_CARD_CARD_REGENT_DAGGER_CARD.title": "Regent's Dagger",
-  "STS2_AI_A_CARD_CARD_REGENT_DAGGER_CARD.description": "Deal {Damage:diff()} damage {HitCount:diff()} {HitCount:plural:time|times}.",
   "STS2_AI_A_CARD_CARD_FORGE_CHORUS.title": "Forge Chorus",
   "STS2_AI_A_CARD_CARD_FORGE_CHORUS.description": "[gold]Forge[/gold] {Forge:diff()} X times.",
   "STS2_AI_A_CARD_CARD_REQUIEM_CARD.title": "Requiem",

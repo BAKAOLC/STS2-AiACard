@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Cards;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -14,11 +13,7 @@ namespace STS2_AiACard.Cards.Necrobinder
     {
         protected override bool HasEnergyCostX => true;
 
-        public override IEnumerable<CardKeyword> CanonicalKeywords =>
-            IsUpgraded ? [] : [CardKeyword.Exhaust];
-
-        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            IsUpgraded ? [] : [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
@@ -46,6 +41,7 @@ namespace STS2_AiACard.Cards.Necrobinder
 
         protected override void OnUpgrade()
         {
+            RemoveKeyword(CardKeyword.Exhaust);
         }
     }
 }

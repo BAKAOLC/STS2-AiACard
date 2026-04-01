@@ -12,9 +12,6 @@ namespace STS2_AiACard.Cards.Necrobinder
     /// <summary>安魂曲</summary>
     public sealed class RequiemCard() : ModCardTemplate(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        public override IEnumerable<CardKeyword> CanonicalKeywords =>
-            IsUpgraded ? [CardKeyword.Innate] : [];
-
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new EnergyVar(2), new EnergyVar("RequiemGain", 1)];
 
@@ -33,6 +30,7 @@ namespace STS2_AiACard.Cards.Necrobinder
 
         protected override void OnUpgrade()
         {
+            AddKeyword(CardKeyword.Innate);
         }
     }
 }

@@ -13,9 +13,6 @@ namespace STS2_AiACard.Cards.Regent
     {
         public override int CanonicalStarCost => 3;
 
-        public override IEnumerable<CardKeyword> CanonicalKeywords =>
-            IsUpgraded ? [CardKeyword.Innate] : [];
-
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<KingDislikesMathPower>()];
 
@@ -31,6 +28,7 @@ namespace STS2_AiACard.Cards.Regent
 
         protected override void OnUpgrade()
         {
+            AddKeyword(CardKeyword.Innate);
         }
     }
 }

@@ -11,9 +11,6 @@ namespace STS2_AiACard.Cards.Regent
     /// <summary>熟能生巧</summary>
     public sealed class PracticePerfect() : ModCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        public override IEnumerable<CardKeyword> CanonicalKeywords =>
-            IsUpgraded ? [CardKeyword.Innate] : [];
-
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromCard<SovereignBlade>()];
 
@@ -32,6 +29,7 @@ namespace STS2_AiACard.Cards.Regent
 
         protected override void OnUpgrade()
         {
+            AddKeyword(CardKeyword.Innate);
         }
     }
 }

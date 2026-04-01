@@ -34,7 +34,6 @@ namespace STS2_AiACard.Content.Descriptors
             new CardRegistrationEntry<SilentCardPool, SerpentArray>(),
             new CardRegistrationEntry<RegentCardPool, PracticePerfect>(),
             new CardRegistrationEntry<RegentCardPool, BlossomBlades>(),
-            new CardRegistrationEntry<RegentCardPool, RegentDaggerCard>(),
             new CardRegistrationEntry<RegentCardPool, ForgeChorus>(),
             new CardRegistrationEntry<RegentCardPool, KingDislikesMathCard>(),
             new CardRegistrationEntry<NecrobinderCardPool, RequiemCard>(),
