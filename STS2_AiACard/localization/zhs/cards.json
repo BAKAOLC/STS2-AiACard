@@ -28,7 +28,7 @@
   "STS2_AI_A_CARD_CARD_LEARNING_JOY.title": "必有我师",
   "STS2_AI_A_CARD_CARD_LEARNING_JOY.description": "从三张其他角色的{IfUpgraded:show:[gold]升级过的[/gold]|}能力牌中选择一张加入你的[gold]手牌[/gold]。这张牌在本回合免费打出。",
   "STS2_AI_A_CARD_CARD_BOOT_SEQUENCE.title": "别吵，还在启动",
-  "STS2_AI_A_CARD_CARD_BOOT_SEQUENCE.description": "获得{IfUpgraded:show:5|3}X点[gold]格挡[/gold]。选择[gold]手牌[/gold]中最多X张牌，为其添加[gold]保留[/gold]。{InCombat:\n（获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。）|}",
+  "STS2_AI_A_CARD_CARD_BOOT_SEQUENCE.description": "获得{IfUpgraded:show:5|3}X点[gold]格挡[/gold]。选择[gold]手牌[/gold]中最多X张牌，为其添加[gold]保留[/gold]。",
   "STS2_AI_A_CARD_CARD_POST_COMBAT_TREATMENT.title": "准备治疗",
   "STS2_AI_A_CARD_CARD_POST_COMBAT_TREATMENT.description": "在战斗结束时，回复{Heal:diff()}点生命。",
   "STS2_AI_A_CARD_CARD_MANIPULATION_REALITY_CARD.title": "操控现实",

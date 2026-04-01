@@ -28,7 +28,7 @@
   "STS2_AI_A_CARD_CARD_LEARNING_JOY.title": "Among Three, a Teacher",
   "STS2_AI_A_CARD_CARD_LEARNING_JOY.description": "Choose 1 of 3 {IfUpgraded:show:[gold]Upgraded [/gold]|}Powers from other characters to add to your [gold]Hand[/gold]. It's free to play this turn.",
   "STS2_AI_A_CARD_CARD_BOOT_SEQUENCE.title": "Quiet, Still Booting",
-  "STS2_AI_A_CARD_CARD_BOOT_SEQUENCE.description": "Gain {IfUpgraded:show:5|3}X [gold]Block[/gold]. Choose up to X cards in your [gold]Hand[/gold]. They gain [gold]Retain[/gold].{InCombat:\n(Gain {CalculatedBlock:diff()} [gold]Block[/gold].)|}",
+  "STS2_AI_A_CARD_CARD_BOOT_SEQUENCE.description": "Gain {IfUpgraded:show:5|3}X [gold]Block[/gold]. Choose up to X cards in your [gold]Hand[/gold]. They gain [gold]Retain[/gold].",
   "STS2_AI_A_CARD_CARD_POST_COMBAT_TREATMENT.title": "Post-Combat Treatment",
   "STS2_AI_A_CARD_CARD_POST_COMBAT_TREATMENT.description": "At the end of combat, heal {Heal:diff()} HP.",
   "STS2_AI_A_CARD_CARD_MANIPULATION_REALITY_CARD.title": "Manipulate Reality",
