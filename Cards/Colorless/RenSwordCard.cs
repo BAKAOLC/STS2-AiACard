@@ -13,8 +13,9 @@ namespace STS2_AiACard.Cards.Colorless
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
+        // FromCard only: FromCardWithCardHoverTips chains HoverTips and would recurse with YiSwordCard's tip to Ren.
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<YiSwordCard>();
+            [HoverTipFactory.FromCard<YiSwordCard>()];
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new DamageVar(0m, ValueProp.Move)];
