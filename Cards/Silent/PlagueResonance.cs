@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,15 +13,21 @@ namespace STS2_AiACard.Cards.Silent
     /// <summary>荒疫共鸣</summary>
     public sealed class PlagueResonance() : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        private const string StatKey = "StatLoss";
+        private const string DiscardKey = "DiscardCards";
+        private const string DexLossKey = "DexLoss";
         private const string GainEnergyKey = "GainEnergy";
+        private const string ArtifactStacksKey = "ArtifactStacks";
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new(StatKey, 2m), new EnergyVar(GainEnergyKey, 2)];
+        [
+            new CardsVar(DiscardKey, 3),
+            new(DexLossKey, 2m),
+            new EnergyVar(GainEnergyKey, 3),
+            new(ArtifactStacksKey, 3m),
+        ];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         [
-            HoverTipFactory.FromPower<PlagueResonanceStrengthDownPower>(),
             HoverTipFactory.FromPower<PlagueResonanceDexterityDownPower>(),
             HoverTipFactory.FromPower<ArtifactPower>(),
         ];
@@ -32,17 +39,38 @@ namespace STS2_AiACard.Cards.Silent
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            var n = DynamicVars[StatKey].IntValue;
-            await PowerCmd.Apply<PlagueResonanceStrengthDownPower>(Owner.Creature, n, Owner.Creature, this);
-            await PowerCmd.Apply<PlagueResonanceDexterityDownPower>(Owner.Creature, n, Owner.Creature, this);
-            foreach (var e in CombatState.HittableEnemies)
-                await PowerCmd.Apply<ArtifactPower>(e, n, Owner.Creature, this);
+
+            var discardN = DynamicVars[DiscardKey].IntValue;
+            var handCount = PileType.Hand.GetPile(Owner).Cards.Count;
+            var toDiscard = Math.Min(discardN, handCount);
+            if (toDiscard > 0)
+            {
+                var picked = await CardSelectCmd.FromHandForDiscard(choiceContext, Owner,
+                    new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, toDiscard), null, this);
+                await CardCmd.Discard(choiceContext, picked);
+            }
+
+            var dex = DynamicVars[DexLossKey].IntValue;
+            await PowerCmd.Apply<PlagueResonanceDexterityDownPower>(Owner.Creature, dex, Owner.Creature, this);
+
             await PlayerCmd.GainEnergy(DynamicVars[GainEnergyKey].IntValue, Owner);
+
+            var enemies = CombatState.HittableEnemies;
+            if (enemies.Count > 0)
+            {
+                var target = Owner.RunState.Rng.CombatTargets.NextItem(enemies);
+                if (target != null)
+                {
+                    var art = DynamicVars[ArtifactStacksKey].IntValue;
+                    await PowerCmd.Apply<ArtifactPower>(target, art, Owner.Creature, this);
+                }
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars[StatKey].UpgradeValueBy(-1m);
+            DynamicVars[DiscardKey].UpgradeValueBy(-1m);
+            DynamicVars[DexLossKey].UpgradeValueBy(-1m);
         }
     }
 }

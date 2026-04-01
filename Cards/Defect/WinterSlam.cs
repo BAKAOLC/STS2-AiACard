@@ -1,4 +1,6 @@
+using System.Linq;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -7,15 +9,16 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Orbs;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2_AiACard.Powers;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Defect
 {
-    /// <summary>凛冬打击：命中段数 = 本场已成功构筑的冰霜球次数 + 1（由 <see cref="WinterFrostGenTrackerPower" /> 计数）。</summary>
+    /// <summary>凛冬打击：命中段数 = 本场已生成过的冰霜充能球次数 + 1（与 <see cref="OrbChanneledEntry" /> 一致）。</summary>
     public sealed class WinterSlam() : ModCardTemplate(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
         private const string CalculatedHitsKey = "CalculatedHits";
+
+        protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         [
@@ -26,35 +29,21 @@ namespace STS2_AiACard.Cards.Defect
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new DamageVar(7m, ValueProp.Move),
-            new CalculationBaseVar(0m),
+            new CalculationBaseVar(1m),
             new CalculationExtraVar(1m),
             new CalculatedVar(CalculatedHitsKey).WithMultiplier(static (card, _) =>
-            {
-                if (!CombatManager.Instance.IsInProgress || card.CombatState == null)
-                    return 0m;
-                var p = card.Owner?.Creature?.GetPower<WinterFrostGenTrackerPower>();
-                var n = p?.Amount ?? 1m;
-                return n < 1 ? 1m : n;
-            }),
+                CombatManager.Instance.IsInProgress && card.CombatState != null
+                    ? CombatManager.Instance.History.Entries.OfType<OrbChanneledEntry>()
+                        .Count(e => e.Actor.Player == card.Owner && e.Orb is FrostOrb)
+                    : 0m),
         ];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
 
-        public override async Task AfterCardEnteredCombat(CardModel card)
-        {
-            if (card != this || Owner?.Creature == null || CombatState == null)
-                return;
-            if (Owner.Creature.HasPower<WinterFrostGenTrackerPower>())
-                return;
-            await PowerCmd.Apply<WinterFrostGenTrackerPower>(Owner.Creature, 1, Owner.Creature, this);
-        }
-
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target);
-            if (!Owner.Creature.HasPower<WinterFrostGenTrackerPower>())
-                await PowerCmd.Apply<WinterFrostGenTrackerPower>(Owner.Creature, 1, Owner.Creature, this);
             var hits = (int)((CalculatedVar)DynamicVars[CalculatedHitsKey]).Calculate(cardPlay.Target);
             if (hits < 1)
                 hits = 1;

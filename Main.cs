@@ -2,7 +2,9 @@ using System.Reflection;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using STS2_AiACard.Content;
+using STS2_AiACard.Patches;
 using STS2RitsuLib;
+using STS2RitsuLib.Patching.Core;
 
 namespace STS2_AiACard
 {
@@ -29,6 +31,16 @@ namespace STS2_AiACard
             {
                 RitsuLibFramework.EnsureGodotScriptsRegistered(Assembly.GetExecutingAssembly(), Logger);
                 AiACardContentRegistrar.RegisterAll();
+
+                var kingMathPatcher = RitsuLibFramework.CreatePatcher(Const.ModId, "king_dislikes_math", "王不喜算术");
+                kingMathPatcher.RegisterPatch<KingDislikesMathHasEnoughResourcesPatch>();
+                kingMathPatcher.RegisterPatch<KingDislikesMathSpendResourcesPatch>();
+                if (!RitsuLibFramework.ApplyRequiredPatcher(
+                        kingMathPatcher,
+                        () => IsModActive = false,
+                        "王不喜算术相关补丁未能应用，本 Mod 已禁用。"))
+                    return;
+
                 IsModActive = true;
                 Logger.Info("Mod initialization complete - Mod is now ACTIVE");
             }

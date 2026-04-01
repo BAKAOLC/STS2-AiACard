@@ -9,8 +9,8 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Defect
 {
-    /// <summary>学习使我快乐：从其他角色能力池中随机展示至多 3 张能力牌（均为升级版本），选一张加入手牌且本回合 0 费打出。</summary>
-    public sealed class LearningJoy() : ModCardTemplate(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    /// <summary>必有我师：从其他角色能力池中随机展示至多 3 张能力牌；未升级时为未升级版本，升级后为升级版本；选一张加入手牌且本回合免费打出。</summary>
+    public sealed class LearningJoy() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -49,7 +49,8 @@ namespace STS2_AiACard.Cards.Defect
             foreach (var c in chosenCanon)
             {
                 var inst = CombatState.CreateCard(c, Owner);
-                CardCmd.Upgrade(inst);
+                if (IsUpgraded)
+                    CardCmd.Upgrade(inst);
                 options.Add(inst);
             }
 
@@ -57,7 +58,7 @@ namespace STS2_AiACard.Cards.Defect
             if (picked == null)
                 return;
 
-            picked.EnergyCost.SetThisTurnOrUntilPlayed(0);
+            picked.SetToFreeThisTurn();
             await CardPileCmd.AddGeneratedCardToCombat(picked, PileType.Hand, true);
         }
     }

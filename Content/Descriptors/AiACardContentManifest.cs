@@ -16,15 +16,16 @@ namespace STS2_AiACard.Content.Descriptors
         [
             new PowerRegistrationEntry<VeiledFormPower>(),
             new PowerRegistrationEntry<VeiledFormExtraTurnPower>(),
-            new PowerRegistrationEntry<PlagueResonanceStrengthDownPower>(),
             new PowerRegistrationEntry<PlagueResonanceDexterityDownPower>(),
             new PowerRegistrationEntry<RequiemEnergyPower>(),
             new PowerRegistrationEntry<SwordPracticePower>(),
+            new PowerRegistrationEntry<BlossomBladesPower>(),
             new PowerRegistrationEntry<ManipulationRealityPower>(),
-            new PowerRegistrationEntry<WinterFrostGenTrackerPower>(),
             new PowerRegistrationEntry<HeavenGiftPower>(),
             new PowerRegistrationEntry<PostCombatHealPower>(),
             new PowerRegistrationEntry<SnakeEloPower>(),
+            new PowerRegistrationEntry<SnakeContractEntropyPower>(),
+            new PowerRegistrationEntry<KingDislikesMathPower>(),
             new CardRegistrationEntry<IroncladCardPool, GnawBite>(),
             new CardRegistrationEntry<IroncladCardPool, HollowDebt>(),
             new CardRegistrationEntry<IroncladCardPool, MaliceSpread>(),
@@ -35,6 +36,7 @@ namespace STS2_AiACard.Content.Descriptors
             new CardRegistrationEntry<RegentCardPool, BlossomBlades>(),
             new CardRegistrationEntry<RegentCardPool, RegentDaggerCard>(),
             new CardRegistrationEntry<RegentCardPool, ForgeChorus>(),
+            new CardRegistrationEntry<RegentCardPool, KingDislikesMathCard>(),
             new CardRegistrationEntry<NecrobinderCardPool, RequiemCard>(),
             new CardRegistrationEntry<NecrobinderCardPool, DreamReturn>(),
             new CardRegistrationEntry<NecrobinderCardPool, UnderworldDraw>(),
@@ -46,6 +48,8 @@ namespace STS2_AiACard.Content.Descriptors
             new CardRegistrationEntry<ColorlessCardPool, SnakeContractCard>(),
             new CardRegistrationEntry<ColorlessCardPool, HeavenGiftCard>(),
             new CardRegistrationEntry<ColorlessCardPool, SnakeEloCard>(),
+            new CardRegistrationEntry<ColorlessCardPool, RenSwordCard>(),
+            new CardRegistrationEntry<ColorlessCardPool, YiSwordCard>(),
         ];
     }
 }

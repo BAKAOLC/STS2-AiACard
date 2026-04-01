@@ -1,14 +1,16 @@
+using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Cards;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Necrobinder
 {
     /// <summary>游梦回魂</summary>
-    public sealed class DreamReturn() : ModCardTemplate(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class DreamReturn() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new SummonVar(5m)];

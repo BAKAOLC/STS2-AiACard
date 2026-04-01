@@ -9,7 +9,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Colorless
 {
-    /// <summary>上天的恩赐</summary>
+    /// <summary>天降恩赐</summary>
     public sealed class HeavenGiftCard() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         private const string CalculatedGoldKey = "CalculatedGold";
@@ -41,6 +41,7 @@ namespace STS2_AiACard.Cards.Colorless
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await PlayerCmd.LoseGold(3, Owner);
+            await Task.Delay(350);
             var gold = (int)((CalculatedVar)DynamicVars[CalculatedGoldKey]).Calculate(null);
             await PowerCmd.Apply<HeavenGiftPower>(Owner.Creature, gold, Owner.Creature, this);
         }

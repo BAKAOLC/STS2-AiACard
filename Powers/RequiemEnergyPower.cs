@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using STS2_AiACard.Cards.Necrobinder;
 
 namespace STS2_AiACard.Powers
 {
@@ -18,6 +19,9 @@ namespace STS2_AiACard.Powers
         public override Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {
             if (cardPlay.Card.Owner?.Creature != Owner)
+                return Task.CompletedTask;
+
+            if (cardPlay.Card is RequiemCard)
                 return Task.CompletedTask;
 
             var ec = cardPlay.Card.EnergyCost;
