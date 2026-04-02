@@ -31,7 +31,7 @@ namespace STS2_AiACard.Cards.Defect
         ];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.BootSequence, Const.Paths.CardPortraits.BootSequence);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

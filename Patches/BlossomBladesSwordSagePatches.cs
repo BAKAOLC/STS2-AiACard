@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Powers;
-using STS2_AiACard;
 using STS2_AiACard.Powers;
 using STS2RitsuLib.Patching.Models;
 
@@ -16,8 +13,10 @@ namespace STS2_AiACard.Patches
 
         public static string Description => "剑花纷飞：剑圣层数变化时按剑花公式刷新段数（跳过原版 SetRepeats）";
 
-        public static ModPatchTarget[] GetTargets() =>
-            [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterPowerAmountChanged))];
+        public static ModPatchTarget[] GetTargets()
+        {
+            return [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterPowerAmountChanged))];
+        }
 
         public static bool Prefix(SwordSagePower __instance, PowerModel power, ref Task __result)
         {
@@ -27,8 +26,10 @@ namespace STS2_AiACard.Patches
             return false;
         }
 
-        public static void Postfix(SwordSagePower __instance, PowerModel power) =>
+        public static void Postfix(SwordSagePower __instance, PowerModel power)
+        {
             BlossomBladesPower.HarmonyAfterSwordSagePowerAmountChanged(__instance, power);
+        }
     }
 
     /// <summary>Prefix + Postfix：<see cref="SwordSagePower.AfterCardEnteredCombat" />。</summary>
@@ -38,8 +39,10 @@ namespace STS2_AiACard.Patches
 
         public static string Description => "剑花纷飞：君王之剑入场时按剑花公式刷新段数";
 
-        public static ModPatchTarget[] GetTargets() =>
-            [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterCardEnteredCombat))];
+        public static ModPatchTarget[] GetTargets()
+        {
+            return [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterCardEnteredCombat))];
+        }
 
         public static bool Prefix(SwordSagePower __instance, CardModel card, ref Task __result)
         {
@@ -49,8 +52,10 @@ namespace STS2_AiACard.Patches
             return false;
         }
 
-        public static void Postfix(SwordSagePower __instance, CardModel card) =>
+        public static void Postfix(SwordSagePower __instance, CardModel card)
+        {
             BlossomBladesPower.HarmonyAfterSwordSageCardEnteredCombat(__instance, card);
+        }
     }
 
     /// <summary>Prefix + Postfix：<see cref="SwordSagePower.AfterRemoved" />。</summary>
@@ -60,8 +65,10 @@ namespace STS2_AiACard.Patches
 
         public static string Description => "剑花纷飞：失去剑圣后按剑花规则重算段数";
 
-        public static ModPatchTarget[] GetTargets() =>
-            [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterRemoved))];
+        public static ModPatchTarget[] GetTargets()
+        {
+            return [new(typeof(SwordSagePower), nameof(SwordSagePower.AfterRemoved))];
+        }
 
         public static bool Prefix(Creature oldOwner, ref Task __result)
         {
@@ -71,7 +78,9 @@ namespace STS2_AiACard.Patches
             return false;
         }
 
-        public static void Postfix(Creature oldOwner) =>
+        public static void Postfix(Creature oldOwner)
+        {
             BlossomBladesPower.HarmonyAfterSwordSageRemoved(oldOwner);
+        }
     }
 }

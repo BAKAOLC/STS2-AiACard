@@ -16,7 +16,7 @@ namespace STS2_AiACard.Cards.Regent
             [HoverTipFactory.FromPower<KingDislikesMathPower>()];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.KingDislikesMath, Const.Paths.CardPortraits.KingDislikesMath);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

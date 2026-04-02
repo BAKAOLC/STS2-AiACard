@@ -17,7 +17,7 @@
   "STS2_AI_A_CARD_CARD_BLOSSOM_BLADES.description": "本场战斗中，你的[gold]君王之剑[/gold]每次攻击造成[blue]6[/blue]点伤害；攻击次数为[blue]1[/blue]次，且牌上伤害数值每有[blue]10[/blue]点额外[blue]1[/blue]次。[gold]铸造[/gold]不再增加其伤害；每[gold]铸造[/gold][blue]10[/blue]点，改为额外攻击[blue]1[/blue]次。",
   "STS2_AI_A_CARD_CARD_FORGE_CHORUS.title": "全力锻造",
   "STS2_AI_A_CARD_CARD_FORGE_CHORUS.description": "[gold]铸造[/gold]{Forge:diff()}X次。",
-  "STS2_AI_A_CARD_CARD_REQUIEM_CARD.title": "安魂曲",
+  "STS2_AI_A_CARD_CARD_REQUIEM_CARD.title": "骨独摇滚",
   "STS2_AI_A_CARD_CARD_REQUIEM_CARD.description": "获得{RequiemGain:energyIcons()}。每当你打出一张耗能大于等于{Energy:energyIcons()}的牌时，获得{RequiemGain:energyIcons()}。",
   "STS2_AI_A_CARD_CARD_DREAM_RETURN.title": "游梦回魂",
   "STS2_AI_A_CARD_CARD_DREAM_RETURN.description": "[gold]召唤[/gold]{Summon:diff()}。将你[gold]弃牌堆[/gold]中所有带[gold]虚无[/gold]的牌放入你的[gold]手牌[/gold]，这些牌本回合耗能减少1{energyPrefix:energyIcons(1)}。",

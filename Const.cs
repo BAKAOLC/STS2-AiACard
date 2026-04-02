@@ -15,6 +15,29 @@ namespace STS2_AiACard
         {
             public const string Root = "res://STS2_AiACard";
             public const string PlaceholderPortrait = Root + "/cards/placeholder.png";
+
+            /// <summary>卡面资源目录 <c>STS2_AiACard/cards/</c>，文件名与简中牌名一致。</summary>
+            public static class CardPortraits
+            {
+                private const string C = Root + "/cards/";
+
+                public const string GnawBite = C + "001_啃咬.png";
+                public const string MaliceSpread = C + "002_恶意弥漫.png";
+                public const string HollowDebt = C + "003_虚妄代偿.png";
+                public const string PlagueResonance = C + "004_荒疫共鸣.png";
+                public const string SerpentArray = C + "005_万蛇阵.png";
+                public const string VeiledForm = C + "006_隐秘形态.png";
+                public const string ForgeChorus = C + "007_全力锻造.png";
+                public const string BlossomBlades = C + "008_剑花纷飞.png";
+                public const string PracticePerfect = C + "009_熟能生巧.png";
+                public const string KingDislikesMath = C + "010_王不喜算术.png";
+                public const string BoneSoloRock = C + "011_骨独摇滚.png";
+                public const string UnderworldDraw = C + "012_冥域抽取.png";
+                public const string DreamReturn = C + "013_游梦回魂.png";
+                public const string LearningJoy = C + "014_必有我师.png";
+                public const string WinterSlam = C + "015_凛冬打击.png";
+                public const string BootSequence = C + "016_别吵，还在启动.png";
+            }
         }
     }
 }

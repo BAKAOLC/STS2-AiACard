@@ -17,7 +17,7 @@ namespace STS2_AiACard.Cards.Ironclad
         ];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.GnawBite, Const.Paths.CardPortraits.GnawBite);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

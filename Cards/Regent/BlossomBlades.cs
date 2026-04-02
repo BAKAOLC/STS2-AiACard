@@ -17,7 +17,7 @@ namespace STS2_AiACard.Cards.Regent
             [HoverTipFactory.FromCard<SovereignBlade>()];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.BlossomBlades, Const.Paths.CardPortraits.BlossomBlades);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

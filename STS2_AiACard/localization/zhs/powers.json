@@ -5,7 +5,7 @@
   "STS2_AI_A_CARD_POWER_VEILED_FORM_EXTRA_TURN_POWER.title": "隐秘·额外回合",
   "STS2_AI_A_CARD_POWER_VEILED_FORM_EXTRA_TURN_POWER.description": "（隐藏能力）用于在额外回合结算后移除自身。",
   "STS2_AI_A_CARD_POWER_VEILED_FORM_EXTRA_TURN_POWER.smartDescription": "剩余 [blue]{Amount}[/blue] 次额外回合。",
-  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.title": "安魂曲",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.title": "骨独摇滚",
   "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.description": "每当你打出一张耗能至少为[blue]2[/blue]{energyPrefix:energyIcons(1)}的牌时，获得[blue]1[/blue]{energyPrefix:energyIcons(1)}。",
   "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.smartDescription": "每当你打出一张耗能大于等于{Energy:energyIcons()}的牌时，获得{RequiemGain:energyIcons()}。",
   "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.title": "熟能生巧",

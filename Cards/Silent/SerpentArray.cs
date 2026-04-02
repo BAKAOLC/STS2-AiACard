@@ -21,7 +21,7 @@ namespace STS2_AiACard.Cards.Silent
             [HoverTipFactory.FromPower<PoisonPower>()];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.SerpentArray, Const.Paths.CardPortraits.SerpentArray);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

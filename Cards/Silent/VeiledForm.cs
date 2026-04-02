@@ -30,7 +30,7 @@ namespace STS2_AiACard.Cards.Silent
         }
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.VeiledForm, Const.Paths.CardPortraits.VeiledForm);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

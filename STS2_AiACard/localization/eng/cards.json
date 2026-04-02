@@ -17,7 +17,7 @@
   "STS2_AI_A_CARD_CARD_BLOSSOM_BLADES.description": "For this combat, your [gold]Sovereign Blades[/gold] deal [blue]6[/blue] damage per hit. Hits [blue]1[/blue] + [blue]1[/blue] for every [blue]10[/blue] damage on the blade (before this effect). [gold]Forge[/gold] no longer increases their damage; every [blue]10[/blue] [gold]Forged[/gold] grants [blue]1[/blue] additional hit instead.",
   "STS2_AI_A_CARD_CARD_FORGE_CHORUS.title": "Forge Chorus",
   "STS2_AI_A_CARD_CARD_FORGE_CHORUS.description": "[gold]Forge[/gold] {Forge:diff()} X times.",
-  "STS2_AI_A_CARD_CARD_REQUIEM_CARD.title": "Requiem",
+  "STS2_AI_A_CARD_CARD_REQUIEM_CARD.title": "Bone Solo Rock",
   "STS2_AI_A_CARD_CARD_REQUIEM_CARD.description": "Gain {RequiemGain:energyIcons()}. Whenever you play a card that costs {Energy:energyIcons()} or more, gain {RequiemGain:energyIcons()}.",
   "STS2_AI_A_CARD_CARD_DREAM_RETURN.title": "Dream Return",
   "STS2_AI_A_CARD_CARD_DREAM_RETURN.description": "[gold]Summon[/gold] {Summon:diff()}. Put every [gold]Ethereal[/gold] card from your [gold]Discard Pile[/gold] into your [gold]Hand[/gold]. They cost 1 less {energyPrefix:energyIcons(1)} this turn.",

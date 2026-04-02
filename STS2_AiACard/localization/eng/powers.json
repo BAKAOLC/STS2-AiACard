@@ -5,7 +5,7 @@
   "STS2_AI_A_CARD_POWER_VEILED_FORM_EXTRA_TURN_POWER.title": "Veiled · Extra Turn",
   "STS2_AI_A_CARD_POWER_VEILED_FORM_EXTRA_TURN_POWER.description": "(Hidden) Removed after resolving an extra turn from Veiled Form.",
   "STS2_AI_A_CARD_POWER_VEILED_FORM_EXTRA_TURN_POWER.smartDescription": "[blue]{Amount}[/blue] extra {Amount:plural:turn|turns} remaining.",
-  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.title": "Requiem",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.title": "Bone Solo Rock",
   "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.description": "Whenever you play a card that costs at least [blue]2[/blue] {energyPrefix:energyIcons(1)}, gain [blue]1[/blue]{energyPrefix:energyIcons(1)}.",
   "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.smartDescription": "Whenever you play a card that costs {Energy:energyIcons()} or more, gain {RequiemGain:energyIcons()}.",
   "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.title": "Practice Makes Perfect",

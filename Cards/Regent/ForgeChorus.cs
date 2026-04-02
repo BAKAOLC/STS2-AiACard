@@ -15,7 +15,7 @@ namespace STS2_AiACard.Cards.Regent
             [new ForgeVar(10)];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.ForgeChorus, Const.Paths.CardPortraits.ForgeChorus);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Necrobinder
 {
-    /// <summary>安魂曲</summary>
+    /// <summary>骨独摇滚</summary>
     public sealed class RequiemCard() : ModCardTemplate(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -18,7 +18,7 @@ namespace STS2_AiACard.Cards.Necrobinder
             [HoverTipFactory.FromPower<RequiemEnergyPower>()];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.BoneSoloRock, Const.Paths.CardPortraits.BoneSoloRock);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
