@@ -22,7 +22,7 @@
   "STS2_AI_A_CARD_CARD_DREAM_RETURN.title": "Dream Return",
   "STS2_AI_A_CARD_CARD_DREAM_RETURN.description": "[gold]Summon[/gold] {Summon:diff()}. Put every [gold]Ethereal[/gold] card from your [gold]Discard Pile[/gold] into your [gold]Hand[/gold]. They cost 1 less {energyPrefix:energyIcons(1)} this turn.",
   "STS2_AI_A_CARD_CARD_UNDERWORLD_DRAW.title": "Underworld Draw",
-  "STS2_AI_A_CARD_CARD_UNDERWORLD_DRAW.description": "Choose X cards from your [gold]Exhaust Pile[/gold] and add them into your [gold]Discard Pile[/gold].",
+  "STS2_AI_A_CARD_CARD_UNDERWORLD_DRAW.description": "Choose X{IfUpgraded:show:+1} cards from your [gold]Exhaust Pile[/gold] and add them into your [gold]Discard Pile[/gold].",
   "STS2_AI_A_CARD_CARD_WINTER_SLAM.title": "Winter Slam",
   "STS2_AI_A_CARD_CARD_WINTER_SLAM.description": "Deal {Damage:diff()} damage. For each [gold]Frost Orb[/gold] you have [gold]Channeled[/gold] this combat, hit an additional time.{InCombat:\n(Hits {CalculatedHits:diff()} {CalculatedHits:plural:time|times})|}",
   "STS2_AI_A_CARD_CARD_LEARNING_JOY.title": "Among Three, a Teacher",

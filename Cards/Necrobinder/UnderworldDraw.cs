@@ -19,7 +19,7 @@ namespace STS2_AiACard.Cards.Necrobinder
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            var x = ResolveEnergyXValue();
+            var x = ResolveEnergyXValue() + (IsUpgraded ? 1 : 0);
             if (x <= 0)
                 return;
 
@@ -37,9 +37,5 @@ namespace STS2_AiACard.Cards.Necrobinder
                 await CardPileCmd.Add(c, PileType.Discard);
         }
 
-        protected override void OnUpgrade()
-        {
-            RemoveKeyword(CardKeyword.Exhaust);
-        }
     }
 }

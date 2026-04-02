@@ -22,7 +22,7 @@
   "STS2_AI_A_CARD_CARD_DREAM_RETURN.title": "游梦回魂",
   "STS2_AI_A_CARD_CARD_DREAM_RETURN.description": "[gold]召唤[/gold]{Summon:diff()}。将你[gold]弃牌堆[/gold]中所有带[gold]虚无[/gold]的牌放入你的[gold]手牌[/gold]，这些牌本回合耗能减少1{energyPrefix:energyIcons(1)}。",
   "STS2_AI_A_CARD_CARD_UNDERWORLD_DRAW.title": "冥域抽取",
-  "STS2_AI_A_CARD_CARD_UNDERWORLD_DRAW.description": "从你[gold]消耗牌堆[/gold]中选择X张牌，将其置入你的[gold]弃牌堆[/gold]。",
+  "STS2_AI_A_CARD_CARD_UNDERWORLD_DRAW.description": "从你[gold]消耗牌堆[/gold]中选择X{IfUpgraded:show:+1}张牌，将其置入你的[gold]弃牌堆[/gold]。",
   "STS2_AI_A_CARD_CARD_WINTER_SLAM.title": "凛冬打击",
   "STS2_AI_A_CARD_CARD_WINTER_SLAM.description": "造成{Damage:diff()}点伤害。本场战斗中，每生成过1枚[gold]冰霜充能球[/gold]，则额外攻击1次。{InCombat:\n（命中{CalculatedHits:diff()}次）|}",
   "STS2_AI_A_CARD_CARD_LEARNING_JOY.title": "必有我师",
