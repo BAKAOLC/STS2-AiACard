@@ -37,6 +37,13 @@ namespace STS2_AiACard
                 public const string LearningJoy = C + "014_必有我师.png";
                 public const string WinterSlam = C + "015_凛冬打击.png";
                 public const string BootSequence = C + "016_别吵，还在启动.png";
+                public const string SnakeElo = C + "017_蛇咬ELO.png";
+                public const string RenSword = C + "018_仁之剑.png";
+                public const string YiSword = C + "019_义之剑.png";
+                public const string PostCombatTreatment = C + "020_准备治疗.png";
+                public const string HeavenGift = C + "021_天降恩赐.png";
+                public const string SnakeContract = C + "022_异蛇契约.png";
+                public const string ManipulationReality = C + "023_操控现实.png";
             }
         }
     }

@@ -14,7 +14,7 @@ namespace STS2_AiACard.Cards.Colorless
             [HoverTipFactory.FromPower<SnakeContractEntropyPower>()];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.SnakeContract, Const.Paths.CardPortraits.SnakeContract);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

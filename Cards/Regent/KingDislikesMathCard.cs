@@ -7,8 +7,8 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Regent
 {
-    /// <summary>王不喜算术：1 能 3 辉；升级后固有。</summary>
-    public sealed class KingDislikesMathCard() : ModCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    /// <summary>王不喜算术：2 能 3 辉；升级后固有。</summary>
+    public sealed class KingDislikesMathCard() : ModCardTemplate(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         public override int CanonicalStarCost => 3;
 

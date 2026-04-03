@@ -18,7 +18,7 @@ namespace STS2_AiACard.Cards.Colorless
             [HoverTipFactory.FromPower<PostCombatHealPower>()];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.PostCombatTreatment, Const.Paths.CardPortraits.PostCombatTreatment);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

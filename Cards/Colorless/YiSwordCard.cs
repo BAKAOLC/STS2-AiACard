@@ -21,7 +21,7 @@ namespace STS2_AiACard.Cards.Colorless
             [new DamageVar(0m, ValueProp.Move)];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.YiSword, Const.Paths.CardPortraits.YiSword);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

@@ -14,7 +14,7 @@ namespace STS2_AiACard.Cards.Colorless
             [HoverTipFactory.FromPower<ManipulationRealityPower>()];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.ManipulationReality, Const.Paths.CardPortraits.ManipulationReality);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

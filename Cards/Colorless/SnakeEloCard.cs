@@ -17,7 +17,7 @@ namespace STS2_AiACard.Cards.Colorless
             [HoverTipFactory.FromCard<Snakebite>()];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.SnakeElo, Const.Paths.CardPortraits.SnakeElo);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

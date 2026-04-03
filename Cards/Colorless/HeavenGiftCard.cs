@@ -35,7 +35,7 @@ namespace STS2_AiACard.Cards.Colorless
         ];
 
         public override CardAssetProfile AssetProfile =>
-            new(Const.Paths.PlaceholderPortrait, Const.Paths.PlaceholderPortrait);
+            new(Const.Paths.CardPortraits.HeavenGift, Const.Paths.CardPortraits.HeavenGift);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
