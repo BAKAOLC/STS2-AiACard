@@ -36,6 +36,5 @@ namespace STS2_AiACard.Cards.Necrobinder
             foreach (var c in picked)
                 await CardPileCmd.Add(c, PileType.Discard);
         }
-
     }
 }
