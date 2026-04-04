@@ -34,7 +34,7 @@
   "STS2_AI_A_CARD_CARD_MANIPULATION_REALITY_CARD.title": "Manipulate Reality",
   "STS2_AI_A_CARD_CARD_MANIPULATION_REALITY_CARD.description": "For this combat, cards you add during combat are [gold]Upgraded[/gold] if possible.",
   "STS2_AI_A_CARD_CARD_SNAKE_CONTRACT_CARD.title": "Serpent Contract",
-  "STS2_AI_A_CARD_CARD_SNAKE_CONTRACT_CARD.description": "Gain [gold]Serpent Entropy[/gold]. When played, randomize costs for cards currently in your [gold]Hand[/gold]. For this combat, cards in your [gold]Hand[/gold] and all cards you draw have Energy cost randomized from 0–3. Cards with a [gold]Star[/gold] cost have Star cost randomized from 0–4.{IfUpgraded:show:\nDraw 3 cards.|}",
+  "STS2_AI_A_CARD_CARD_SNAKE_CONTRACT_CARD.description": "Gain [gold]Serpent Entropy[/gold]. When played, randomize costs for cards currently in your [gold]Hand[/gold]. For this combat, cards in your [gold]Hand[/gold] and all cards you draw have Energy cost randomized from 0–3. Cards with a [gold]Star[/gold] cost have Star cost randomized from 0–5.{IfUpgraded:show:\nDraw 3 cards.|}",
   "STS2_AI_A_CARD_CARD_HEAVEN_GIFT_CARD.title": "Heaven-Sent Gift",
   "STS2_AI_A_CARD_CARD_HEAVEN_GIFT_CARD.description": "Lose 3 [gold]Gold[/gold]. At the end of combat, gain {IfUpgraded:show:7|5}X [gold]Gold[/gold].{InCombat:\n(Gain {CalculatedGold:diff()} [gold]Gold[/gold] at end of combat.)|}",
   "STS2_AI_A_CARD_CARD_SNAKE_ELO_CARD.title": "Snakebite ELO",

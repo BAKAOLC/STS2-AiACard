@@ -45,6 +45,23 @@ namespace STS2_AiACard
                 public const string SnakeContract = C + "022_异蛇契约.png";
                 public const string ManipulationReality = C + "023_操控现实.png";
             }
+
+            public static class PowerIcons
+            {
+                private const string P = Root + "/powers/";
+
+                public const string BlossomBlades = P + "011_剑花纷飞.png";
+                public const string HeavenGift = P + "012_天降恩赐.png";
+                public const string KingDislikesMath = P + "013_王不喜算术.png";
+                public const string ManipulationReality = P + "014_操控现实.png";
+                public const string PlagueResonance = P + "015_荒疫共鸣.png";
+                public const string PostCombatHeal = P + "016_准备治疗.png";
+                public const string RequiemEnergy = P + "017_骨独摇滚.png";
+                public const string SnakeContractEntropy = P + "018_异蛇契约.png";
+                public const string SnakeElo = P + "019_蛇咬ELO.png";
+                public const string SwordPractice = P + "020_熟能生巧.png";
+                public const string VeiledForm = P + "021_隐秘形态.png";
+            }
         }
     }
 }
