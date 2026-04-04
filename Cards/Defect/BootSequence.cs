@@ -47,7 +47,7 @@ namespace STS2_AiACard.Cards.Defect
             if (x <= 0)
                 return;
 
-            var prefs = new CardSelectorPrefs(new("gameplay_ui", "CHOOSE_CARD_HEADER"), x);
+            var prefs = new CardSelectorPrefs(new("gameplay_ui", "CHOOSE_CARD_HEADER"), 0, x);
             var chosen = await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this);
             foreach (var c in chosen)
                 CardCmd.ApplyKeyword(c, CardKeyword.Retain);
