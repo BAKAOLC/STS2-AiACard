@@ -11,8 +11,6 @@ namespace STS2_AiACard.Cards.Regent
     /// <summary>剑花纷飞</summary>
     public sealed class BlossomBlades() : ModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromCard<SovereignBlade>()];
 

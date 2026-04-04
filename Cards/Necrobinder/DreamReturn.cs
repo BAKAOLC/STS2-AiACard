@@ -14,7 +14,10 @@ namespace STS2_AiACard.Cards.Necrobinder
             [new SummonVar(5m)];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            [HoverTipFactory.FromKeyword(CardKeyword.Ethereal)];
+        [
+            HoverTipFactory.Static(StaticHoverTip.SummonDynamic, DynamicVars.Summon),
+            HoverTipFactory.FromKeyword(CardKeyword.Ethereal),
+        ];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

@@ -11,6 +11,7 @@ namespace STS2_AiACard.Powers
                 HeavenGiftPower => Icons(Const.Paths.PowerIcons.HeavenGift),
                 KingDislikesMathPower => Icons(Const.Paths.PowerIcons.KingDislikesMath),
                 ManipulationRealityPower => Icons(Const.Paths.PowerIcons.ManipulationReality),
+                PlagueResonanceDexterityDownPower => Icons(Const.Paths.PowerIcons.PlagueResonance),
                 PostCombatHealPower => Icons(Const.Paths.PowerIcons.PostCombatHeal),
                 RequiemEnergyPower => Icons(Const.Paths.PowerIcons.RequiemEnergy),
                 SnakeContractEntropyPower => Icons(Const.Paths.PowerIcons.SnakeContractEntropy),
