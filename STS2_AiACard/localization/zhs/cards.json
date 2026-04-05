@@ -40,7 +40,7 @@
   "STS2_AI_A_CARD_CARD_SNAKE_ELO_CARD.title": "蛇咬 ELO",
   "STS2_AI_A_CARD_CARD_SNAKE_ELO_CARD.description": "所有的攻击牌[gold]变化[/gold]为[gold]蛇咬[/gold]。\n战斗结束时，额外获得1份卡牌奖励。",
   "STS2_AI_A_CARD_CARD_KING_DISLIKES_MATH_CARD.title": "王不喜算术",
-  "STS2_AI_A_CARD_CARD_KING_DISLIKES_MATH_CARD.description": "你没有足够{energyPrefix:energyIcons(1)}或足够[gold]辉星[/gold]打出某张牌时，可用另一种资源垫付：1{energyPrefix:energyIcons(1)}相当于2个{singleStarIcon}；2个{singleStarIcon}相当于1{energyPrefix:energyIcons(1)}。",
+  "STS2_AI_A_CARD_CARD_KING_DISLIKES_MATH_CARD.description": "你没有足够{energyPrefix:energyIcons(1)}或足够{singleStarIcon}打出某张牌时，可用另一种资源垫付：1{energyPrefix:energyIcons(1)}相当于2个{singleStarIcon}；2个{singleStarIcon}相当于1{energyPrefix:energyIcons(1)}。",
   "STS2_AI_A_CARD_CARD_REN_SWORD_CARD.title": "仁之剑",
   "STS2_AI_A_CARD_CARD_REN_SWORD_CARD.description": "造成{Damage:diff()}点伤害。\n本场战斗中所有[gold]义之剑[/gold]伤害增加3点。若你已拥有[gold]义之剑[/gold]，无论何处，将其放入你的[gold]手牌[/gold]。",
   "STS2_AI_A_CARD_CARD_YI_SWORD_CARD.title": "义之剑",
