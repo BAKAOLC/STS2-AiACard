@@ -34,7 +34,7 @@
   "STS2_AI_A_CARD_CARD_MANIPULATION_REALITY_CARD.title": "操控现实",
   "STS2_AI_A_CARD_CARD_MANIPULATION_REALITY_CARD.description": "所有在战斗中临时增加的牌将被[gold]升级[/gold]。",
   "STS2_AI_A_CARD_CARD_SNAKE_CONTRACT_CARD.title": "异蛇契约",
-  "STS2_AI_A_CARD_CARD_SNAKE_CONTRACT_CARD.description": "本场战斗，变化你当前[gold]手牌[/gold]及之后抽上的卡牌的耗能，范围为0到3；若卡牌有[gold]辉星[/gold]消耗，其[gold]辉星[/gold]消耗也会变化，范围为在0到5。{IfUpgraded:show:\n抽3张牌。|}",
+  "STS2_AI_A_CARD_CARD_SNAKE_CONTRACT_CARD.description": "本场战斗，变化你当前[gold]手牌[/gold]及之后抽上的卡牌的耗能，范围为0到3；若卡牌有[gold]辉星[/gold]消耗，其[gold]辉星[/gold]消耗也会变化，范围为0到5。{IfUpgraded:show:\n抽3张牌。|}",
   "STS2_AI_A_CARD_CARD_HEAVEN_GIFT_CARD.title": "天降恩赐",
   "STS2_AI_A_CARD_CARD_HEAVEN_GIFT_CARD.description": "失去3[gold]金币[/gold]。战斗结束时，获得{IfUpgraded:show:7|5}X[gold]金币[/gold]。{InCombat:\n（战斗结束时获得{CalculatedGold:diff()}[gold]金币[/gold]。）|}",
   "STS2_AI_A_CARD_CARD_SNAKE_ELO_CARD.title": "蛇咬 ELO",
