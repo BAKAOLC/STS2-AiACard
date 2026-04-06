@@ -95,9 +95,9 @@ namespace STS2_AiACard.Patches
             }
 
             var spendEnergy = AccessTools.DeclaredMethod(typeof(CardModel), "SpendEnergy", [typeof(int)])
-                ?? throw new InvalidOperationException("CardModel.SpendEnergy(int) not found.");
+                              ?? throw new InvalidOperationException("CardModel.SpendEnergy(int) not found.");
             var spendStars = AccessTools.DeclaredMethod(typeof(CardModel), "SpendStars", [typeof(int)])
-                ?? throw new InvalidOperationException("CardModel.SpendStars(int) not found.");
+                             ?? throw new InvalidOperationException("CardModel.SpendStars(int) not found.");
 
             var energyTaskObj = spendEnergy.Invoke(card, [energyToSpend]);
             var starsTaskObj = spendStars.Invoke(card, [starsToSpend]);
