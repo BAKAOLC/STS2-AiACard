@@ -1,6 +1,4 @@
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.Rooms;
 
 namespace STS2_AiACard.Powers
 {
@@ -10,11 +8,7 @@ namespace STS2_AiACard.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override Task AfterCombatEnd(CombatRoom room)
-        {
-            if (Owner.Player == null)
-                return Task.CompletedTask;
-            return PlayerCmd.GainGold(Amount, Owner.Player);
-        }
+        /// <summary>每次打出「天降恩赐」各为独立实例，数值不合并到同一层。</summary>
+        public override bool IsInstanced => true;
     }
 }
