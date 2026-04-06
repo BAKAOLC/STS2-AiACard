@@ -72,8 +72,11 @@ namespace STS2_AiACard.Patches
 
         private static async Task<(int, int)> SpendResourcesWithStarSubstitution(CardModel card)
         {
-            var pcs = card.Owner.PlayerCombatState!;
-            var combatState = card.CombatState!;
+            var pcs = card.Owner.PlayerCombatState;
+            var combatState = card.CombatState;
+            ArgumentNullException.ThrowIfNull(pcs);
+            ArgumentNullException.ThrowIfNull(combatState);
+
             var energy = pcs.Energy;
             var energyToSpend = card.EnergyCost.GetAmountToSpend();
             var starsToSpend = Math.Max(0, card.GetStarCostWithModifiers());
@@ -91,10 +94,20 @@ namespace STS2_AiACard.Patches
                 starsToSpend = pcs.Stars;
             }
 
-            var spendEnergy = AccessTools.DeclaredMethod(typeof(CardModel), "SpendEnergy", [typeof(int)])!;
-            var spendStars = AccessTools.DeclaredMethod(typeof(CardModel), "SpendStars", [typeof(int)])!;
-            await (Task)spendEnergy.Invoke(card, [energyToSpend])!;
-            await (Task)spendStars.Invoke(card, [starsToSpend])!;
+            var spendEnergy = AccessTools.DeclaredMethod(typeof(CardModel), "SpendEnergy", [typeof(int)])
+                ?? throw new InvalidOperationException("CardModel.SpendEnergy(int) not found.");
+            var spendStars = AccessTools.DeclaredMethod(typeof(CardModel), "SpendStars", [typeof(int)])
+                ?? throw new InvalidOperationException("CardModel.SpendStars(int) not found.");
+
+            var energyTaskObj = spendEnergy.Invoke(card, [energyToSpend]);
+            var starsTaskObj = spendStars.Invoke(card, [starsToSpend]);
+            if (energyTaskObj is not Task energyTask)
+                throw new InvalidOperationException("SpendEnergy did not return a Task.");
+            if (starsTaskObj is not Task starsTask)
+                throw new InvalidOperationException("SpendStars did not return a Task.");
+
+            await energyTask;
+            await starsTask;
             return (energyToSpend, starsToSpend);
         }
     }
