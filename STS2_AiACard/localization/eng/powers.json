@@ -7,7 +7,7 @@
   "STS2_AI_A_CARD_POWER_VEILED_FORM_EXTRA_TURN_POWER.smartDescription": "[blue]{Amount}[/blue] extra {Amount:plural:turn|turns} remaining.",
   "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.title": "Bone Solo Rock",
   "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.description": "Whenever you play a card that costs {energyPrefix:energyIcons(2)} or more, gain {energyPrefix:energyIcons(1)}.",
-  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.smartDescription": "Whenever you play a card that costs {Energy:energyIcons()} or more, gain {RequiemGain:energyIcons()}.",
+  "STS2_AI_A_CARD_POWER_REQUIEM_ENERGY_POWER.smartDescription": "Whenever you play a card that costs {energyPrefix:energyIcons(2)} or more, gain {RequiemGain:energyIcons()}.",
   "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.title": "Practice Makes Perfect",
   "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.description": "For this combat, [gold]Upgrade[/gold] ALL [gold]Sovereign Blade[/gold] cards.",
   "STS2_AI_A_CARD_POWER_SWORD_PRACTICE_POWER.smartDescription": "For this combat, [gold]Upgrade[/gold] ALL [gold]Sovereign Blade[/gold] cards.",
