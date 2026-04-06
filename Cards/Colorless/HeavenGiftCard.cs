@@ -32,7 +32,8 @@ namespace STS2_AiACard.Cards.Colorless
             {
                 if (!CombatManager.Instance.IsInProgress || card.CombatState == null)
                     return 0m;
-                return card.EnergyCost.CapturedXValue;
+                var x = Math.Max(card.EnergyCost.CapturedXValue, card.EnergyCost.GetAmountToSpend());
+                return x;
             }),
         ];
 
