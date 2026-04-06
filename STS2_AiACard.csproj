@@ -49,11 +49,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="local.props"/>
-        <None Include="local.props.template"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="$(RitsuLibDir)\STS2-RitsuLib.csproj"/>
     </ItemGroup>
 
