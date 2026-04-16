@@ -11,6 +11,8 @@ namespace STS2_AiACard.Cards.Colorless
     /// <summary>义之剑：打出时强化仁之剑伤害；若仁之剑已在己方任一战斗牌堆中则置入手牌。</summary>
     public sealed class YiSwordCard() : ModCardTemplate(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
+        public override bool CanBeGeneratedInCombat => false;
+
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         // See RenSwordCard.AdditionalHoverTips — avoid FromCardWithCardHoverTips (mutual recursion).

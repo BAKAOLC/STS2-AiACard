@@ -23,7 +23,7 @@ namespace STS2_AiACard.Cards.Silent
             new CardsVar(DiscardKey, 3),
             new(DexLossKey, 2m),
             new EnergyVar(GainEnergyKey, 3),
-            new(ArtifactStacksKey, 3m),
+            new(ArtifactStacksKey, 2m),
         ];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>

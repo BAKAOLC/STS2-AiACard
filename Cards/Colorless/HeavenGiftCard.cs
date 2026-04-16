@@ -27,7 +27,7 @@ namespace STS2_AiACard.Cards.Colorless
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new CalculationBaseVar(0m),
-            new CalculationExtraVar(5m),
+            new CalculationExtraVar(12m),
             new CalculatedVar(CalculatedGoldKey).WithMultiplier(static (card, _) =>
             {
                 if (!CombatManager.Instance.IsInProgress || card.CombatState == null)
@@ -54,7 +54,7 @@ namespace STS2_AiACard.Cards.Colorless
 
         protected override void OnUpgrade()
         {
-            DynamicVars.CalculationExtra.UpgradeValueBy(2m);
+            DynamicVars.CalculationExtra.UpgradeValueBy(5m);
         }
     }
 }

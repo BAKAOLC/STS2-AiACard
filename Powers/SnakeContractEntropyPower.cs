@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 
 namespace STS2_AiACard.Powers
@@ -21,6 +22,13 @@ namespace STS2_AiACard.Powers
                 return Task.CompletedTask;
             ApplyRandomCosts(card, Owner.Player);
             return Task.CompletedTask;
+        }
+
+        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        {
+            if (side != CombatSide.Player || Owner.IsMonster)
+                return;
+            await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner, 1, Owner, null);
         }
 
         /// <summary>随机化能量（0～3，与混乱一致）及固定辉星消耗（0～5，不含辉星 X）。</summary>

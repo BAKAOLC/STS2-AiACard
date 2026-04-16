@@ -10,6 +10,8 @@ namespace STS2_AiACard.Cards.Colorless
     /// <summary>异蛇契约：金卡；获得「异蛇熵契」；打出后立即随机化当前手牌耗能/辉星；之后抽上的牌同上。</summary>
     public sealed class SnakeContractCard() : ModCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => IsUpgraded ? [CardKeyword.Innate] : [];
+
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<SnakeContractEntropyPower>()];
 
@@ -27,7 +29,7 @@ namespace STS2_AiACard.Cards.Colorless
                 SnakeContractEntropyPower.ApplyRandomCosts(card, Owner);
 
             if (IsUpgraded)
-                await CardPileCmd.Draw(choiceContext, 3, Owner);
+                await CardPileCmd.Draw(choiceContext, 1, Owner);
         }
     }
 }

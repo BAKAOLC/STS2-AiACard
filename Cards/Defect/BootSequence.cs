@@ -15,14 +15,14 @@ namespace STS2_AiACard.Cards.Defect
     {
         protected override bool HasEnergyCostX => true;
 
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Innate];
 
         public override bool GainsBlock => true;
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new CalculationBaseVar(0m),
-            new CalculationExtraVar(3m),
+            new CalculationExtraVar(5m),
             new CalculatedBlockVar(ValueProp.Move).WithMultiplier(static (card, _) =>
             {
                 if (!CombatManager.Instance.IsInProgress || card.CombatState == null)

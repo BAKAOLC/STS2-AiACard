@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard.Cards.Necrobinder
 {
     /// <summary>游梦回魂</summary>
-    public sealed class DreamReturn() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class DreamReturn() : ModCardTemplate(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new SummonVar(5m)];
@@ -33,7 +33,7 @@ namespace STS2_AiACard.Cards.Necrobinder
                          .Where(static x => x.Keywords.Contains(CardKeyword.Ethereal)))
             {
                 await CardPileCmd.Add(c, PileType.Hand);
-                c.EnergyCost.AddThisTurn(-1, true);
+                c.EnergyCost.AddThisTurnOrUntilPlayed(-1, true);
             }
         }
 
