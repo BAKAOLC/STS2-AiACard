@@ -25,7 +25,7 @@ namespace STS2_AiACard.Powers
         /// <summary>将当前伤害读数换算为段数，并把伤害压到 6；最终段数 = (剑花基础 + 铸造加成) × (1 + 剑圣层数)，与原版剑圣对默认 1 段的「每 1 层多一整轮」一致。</summary>
         public static void NormalizeBlade(SovereignBlade blade)
         {
-            var state = BladeStates.GetValue(blade, static _ => new());
+            var state = GetBladeState(blade);
             var dmg = blade.DynamicVars.Damage.BaseValue;
             var alreadyNormalized = state.Initialized && dmg == BlossomDamagePerHit;
 
@@ -56,7 +56,7 @@ namespace STS2_AiACard.Powers
 
             foreach (var blade in EnumerateSovereignBlades(forger))
             {
-                var state = BladeStates.GetValue(blade, static _ => new());
+                var state = GetBladeState(blade);
                 state.ForgeAccumulator += amount;
                 var extraHits = (int)(state.ForgeAccumulator / 10m);
                 state.ForgeAccumulator -= extraHits * 10m;
@@ -71,7 +71,7 @@ namespace STS2_AiACard.Powers
 
         public override Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? source)
         {
-            if (card.IsDupe || oldPileType != PileType.None || card is not SovereignBlade blade ||
+            if (oldPileType != PileType.None || card is not SovereignBlade blade ||
                 blade.Owner != Owner.Player)
                 return Task.CompletedTask;
 
@@ -138,7 +138,7 @@ namespace STS2_AiACard.Powers
         {
             if (card.Owner != sageInstance.Owner.Player)
                 return;
-            if (card.IsDupe || card is not SovereignBlade blade)
+            if (card is not SovereignBlade blade)
                 return;
             if (sageInstance.Owner.GetPower<BlossomBladesPower>() is null)
                 return;
@@ -161,7 +161,7 @@ namespace STS2_AiACard.Powers
                 return;
             foreach (var item in pcs.AllCards)
             {
-                if (item.IsDupe || item is not SovereignBlade blade)
+                if (item is not SovereignBlade blade)
                     continue;
                 ApplyTotalRepeats(blade, swordSageStackAmount);
             }
@@ -169,7 +169,7 @@ namespace STS2_AiACard.Powers
 
         private static void ApplyTotalRepeats(SovereignBlade blade, decimal swordSageStackAmount)
         {
-            var state = BladeStates.GetValue(blade, static _ => new());
+            var state = GetBladeState(blade);
             if (!state.Initialized)
             {
                 var dmg = blade.DynamicVars.Damage.BaseValue;
@@ -191,7 +191,36 @@ namespace STS2_AiACard.Powers
             var pcs = player.PlayerCombatState;
             if (pcs == null)
                 return [];
-            return pcs.AllCards.Where(static c => !c.IsDupe).OfType<SovereignBlade>();
+            return pcs.AllCards.OfType<SovereignBlade>();
+        }
+
+        /// <summary>
+        ///     取本牌剑花状态；若为 <see cref="CardModel.IsDupe" /> 则在首次创建时沿 <see cref="CardModel.DupeOf" /> 链继承上游已初始化数据。
+        /// </summary>
+        private static BladeBlossomState GetBladeState(SovereignBlade blade)
+        {
+            return BladeStates.GetValue(blade, static key =>
+            {
+                var created = new BladeBlossomState();
+                TryCopyInitializedStateFromDupeChain(key, created);
+                return created;
+            });
+        }
+
+        private static void TryCopyInitializedStateFromDupeChain(SovereignBlade blade, BladeBlossomState target)
+        {
+            for (var upstream = blade.DupeOf as SovereignBlade;
+                 upstream != null;
+                 upstream = upstream.DupeOf as SovereignBlade)
+            {
+                if (!BladeStates.TryGetValue(upstream, out var upstreamState) || !upstreamState.Initialized)
+                    continue;
+                target.BaseBlossomHits = upstreamState.BaseBlossomHits;
+                target.ForgeAccumulator = upstreamState.ForgeAccumulator;
+                target.ForgeBonusHits = upstreamState.ForgeBonusHits;
+                target.Initialized = upstreamState.Initialized;
+                return;
+            }
         }
 
         private sealed class BladeBlossomState
