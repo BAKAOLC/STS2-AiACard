@@ -12,7 +12,11 @@ namespace STS2_AiACard.Cards.Regent
     public sealed class BlossomBlades() : ModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            [HoverTipFactory.FromCard<SovereignBlade>()];
+        [
+            ..HoverTipFactory.FromForge(),
+            HoverTipFactory.FromPower<BlossomBladesPower>(),
+            HoverTipFactory.FromCard<SovereignBlade>(),
+        ];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.BlossomBlades, Const.Paths.CardPortraits.BlossomBlades);

@@ -14,7 +14,7 @@
   "STS2_AI_A_CARD_CARD_PRACTICE_PERFECT.title": "熟能生巧",
   "STS2_AI_A_CARD_CARD_PRACTICE_PERFECT.description": "本场战斗中，[gold]升级[/gold]所有[gold]君王之剑[/gold]。",
   "STS2_AI_A_CARD_CARD_BLOSSOM_BLADES.title": "剑花纷飞",
-  "STS2_AI_A_CARD_CARD_BLOSSOM_BLADES.description": "君王之剑变为6点伤害。铸造不再增加伤害。打出此牌前后，每铸造10点，增加1次攻击次数。",
+  "STS2_AI_A_CARD_CARD_BLOSSOM_BLADES.description": "[gold]君王之剑[/gold]变为6点伤害。[gold]铸造[/gold]不再增加伤害。打出此牌前后，每[gold]铸造[/gold]10点，增加1次攻击次数。",
   "STS2_AI_A_CARD_CARD_FORGE_CHORUS.title": "全力锻造",
   "STS2_AI_A_CARD_CARD_FORGE_CHORUS.description": "[gold]铸造[/gold]{Forge:diff()}，铸造X次。",
   "STS2_AI_A_CARD_CARD_REQUIEM_CARD.title": "骨独摇滚",
