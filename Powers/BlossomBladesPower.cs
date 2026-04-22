@@ -195,7 +195,8 @@ namespace STS2_AiACard.Powers
         }
 
         /// <summary>
-        ///     取本牌剑花状态；若为 <see cref="CardModel.IsDupe" /> 则在首次创建时沿 <see cref="CardModel.DupeOf" /> 链继承上游已初始化数据。
+        ///     取本牌剑花状态；首次创建时沿 <see cref="CardModel.CloneOf" /> 链继承上游已初始化数据，
+        ///     以覆盖复制牌（如双持、传承之锤）的非 Dupe 克隆路径。
         /// </summary>
         private static BladeBlossomState GetBladeState(SovereignBlade blade)
         {
@@ -209,9 +210,9 @@ namespace STS2_AiACard.Powers
 
         private static void TryCopyInitializedStateFromDupeChain(SovereignBlade blade, BladeBlossomState target)
         {
-            for (var upstream = blade.DupeOf as SovereignBlade;
+            for (var upstream = blade.CloneOf as SovereignBlade;
                  upstream != null;
-                 upstream = upstream.DupeOf as SovereignBlade)
+                 upstream = upstream.CloneOf as SovereignBlade)
             {
                 if (!BladeStates.TryGetValue(upstream, out var upstreamState) || !upstreamState.Initialized)
                     continue;

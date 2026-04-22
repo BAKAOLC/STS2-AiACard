@@ -62,7 +62,7 @@ namespace STS2_AiACard.Cards.Silent
                 if (target != null)
                 {
                     var art = DynamicVars[ArtifactStacksKey].IntValue;
-                    await PowerCmd.Apply<ArtifactPower>(target, art, Owner.Creature, this);
+                    await PowerCmd.Apply<ArtifactPower>(target, art, null, this);
                 }
             }
         }
