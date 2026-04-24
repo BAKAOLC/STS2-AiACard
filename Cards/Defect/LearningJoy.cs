@@ -59,7 +59,7 @@ namespace STS2_AiACard.Cards.Defect
                 return;
 
             picked.SetToFreeThisTurn();
-            await CardPileCmd.AddGeneratedCardToCombat(picked, PileType.Hand, true);
+            await CardPileCmd.AddGeneratedCardToCombat(picked, PileType.Hand, Owner);
         }
     }
 }

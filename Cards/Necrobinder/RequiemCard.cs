@@ -24,7 +24,7 @@ namespace STS2_AiACard.Cards.Necrobinder
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await PlayerCmd.GainEnergy(DynamicVars["RequiemGain"].IntValue, Owner);
-            await PowerCmd.Apply<RequiemEnergyPower>(Owner.Creature, 1, Owner.Creature, this);
+            await PowerCmd.Apply<RequiemEnergyPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

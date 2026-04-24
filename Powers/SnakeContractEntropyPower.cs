@@ -30,7 +30,7 @@ namespace STS2_AiACard.Powers
         {
             if (side != CombatSide.Player || Owner.IsMonster)
                 return;
-            await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner, 1, Owner, null);
+            await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner, 1, Owner, null);
         }
 
         /// <summary>随机化能量（0～3，与混乱一致）及固定辉星消耗（0～5，不含辉星 X）。</summary>

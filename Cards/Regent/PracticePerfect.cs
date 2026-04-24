@@ -22,7 +22,7 @@ namespace STS2_AiACard.Cards.Regent
             ArgumentNullException.ThrowIfNull(Owner.PlayerCombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             if (!Owner.Creature.HasPower<SwordPracticePower>())
-                await PowerCmd.Apply<SwordPracticePower>(Owner.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<SwordPracticePower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
             foreach (var c in Owner.PlayerCombatState.AllCards.Where(static x => !x.IsDupe).OfType<SovereignBlade>())
                 CardCmd.Upgrade(c);
         }

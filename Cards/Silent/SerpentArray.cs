@@ -32,7 +32,7 @@ namespace STS2_AiACard.Cards.Silent
             var stacksPerApply = DynamicVars[PoisonStacksKey].IntValue;
             for (var i = 0; i < times; i++)
                 foreach (var e in CombatState.HittableEnemies)
-                    await PowerCmd.Apply<PoisonPower>(e, stacksPerApply, Owner.Creature, this);
+                    await PowerCmd.Apply<PoisonPower>(choiceContext, e, stacksPerApply, Owner.Creature, this);
         }
     }
 }

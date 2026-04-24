@@ -34,15 +34,16 @@ namespace STS2_AiACard.Powers
         public override async Task BeforeApplied(Creature target, decimal amount, Creature? applier,
             CardModel? cardSource)
         {
-            await PowerCmd.Apply<DexterityPower>(target, -amount, applier, cardSource, true);
+            await PowerCmd.Apply<DexterityPower>(new ThrowingPlayerChoiceContext(), target, -amount, applier,
+                cardSource, true);
         }
 
-        public override async Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier,
-            CardModel? cardSource)
+        public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power,
+            decimal amount, Creature? applier, CardModel? cardSource)
         {
             if (_isRemoving || power != this || amount == Amount) return;
 
-            await PowerCmd.Apply<DexterityPower>(Owner, -amount, applier, cardSource, true);
+            await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, -amount, applier, cardSource, true);
         }
 
         public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
@@ -53,7 +54,7 @@ namespace STS2_AiACard.Powers
             _isRemoving = true;
             await PowerCmd.Remove(this);
             _isRemoving = false;
-            await PowerCmd.Apply<DexterityPower>(Owner, Amount, Owner, null, true);
+            await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, Amount, Owner, null, true);
         }
     }
 }

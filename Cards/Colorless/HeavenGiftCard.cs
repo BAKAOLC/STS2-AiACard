@@ -49,7 +49,7 @@ namespace STS2_AiACard.Cards.Colorless
             if (gold > 0 && Owner.RunState.CurrentRoom is CombatRoom combatRoom)
                 combatRoom.AddExtraReward(Owner, new GoldReward(gold, Owner));
 
-            await PowerCmd.Apply<HeavenGiftPower>(Owner.Creature, gold, Owner.Creature, this);
+            await PowerCmd.Apply<HeavenGiftPower>(choiceContext, Owner.Creature, gold, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

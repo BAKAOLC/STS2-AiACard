@@ -39,10 +39,10 @@ namespace STS2_AiACard.Cards.Silent
                 if (c != this)
                     await CardCmd.Exhaust(choiceContext, c);
 
-            await PowerCmd.Apply<VeiledFormPower>(Owner.Creature, 1, Owner.Creature, this);
-            await PowerCmd.Apply<VeiledFormExtraTurnPower>(Owner.Creature, 1, Owner.Creature, this);
+            await PowerCmd.Apply<VeiledFormPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+            await PowerCmd.Apply<VeiledFormExtraTurnPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
             if (IsUpgraded)
-                await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner.Creature, 2, Owner.Creature, this);
+                await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
         }
     }
 }

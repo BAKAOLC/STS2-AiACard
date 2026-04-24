@@ -20,7 +20,7 @@ namespace STS2_AiACard.Cards.Colorless
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             if (!Owner.Creature.HasPower<SnakeContractEntropyPower>())
-                await PowerCmd.Apply<SnakeContractEntropyPower>(Owner.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<SnakeContractEntropyPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
 
             ArgumentNullException.ThrowIfNull(Owner.PlayerCombatState);
             foreach (var card in Owner.PlayerCombatState.Hand.Cards.Where(c => c.Owner == Owner))

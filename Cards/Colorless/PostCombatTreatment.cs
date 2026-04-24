@@ -23,7 +23,8 @@ namespace STS2_AiACard.Cards.Colorless
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            await PowerCmd.Apply<PostCombatHealPower>(Owner.Creature, DynamicVars.Heal.BaseValue, Owner.Creature, this);
+            await PowerCmd.Apply<PostCombatHealPower>(choiceContext, Owner.Creature, DynamicVars.Heal.BaseValue,
+                Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

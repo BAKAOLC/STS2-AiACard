@@ -26,7 +26,7 @@ namespace STS2_AiACard.Cards.Regent
             ArgumentNullException.ThrowIfNull(Owner.PlayerCombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             if (!Owner.Creature.HasPower<BlossomBladesPower>())
-                await PowerCmd.Apply<BlossomBladesPower>(Owner.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<BlossomBladesPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
             foreach (var blade in Owner.PlayerCombatState.AllCards.Where(static c => !c.IsDupe)
                          .OfType<SovereignBlade>())
                 BlossomBladesPower.NormalizeBlade(blade);

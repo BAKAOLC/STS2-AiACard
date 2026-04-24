@@ -45,7 +45,7 @@ namespace STS2_AiACard.Cards.Ironclad
             {
                 var toHand = CombatState.CreateCard<Toxic>(Owner);
                 CardCmd.ApplyKeyword(toHand, CardKeyword.Ethereal);
-                await CardPileCmd.AddGeneratedCardToCombat(toHand, PileType.Hand, true);
+                await CardPileCmd.AddGeneratedCardToCombat(toHand, PileType.Hand, Owner);
             }
 
             var drawDiscardPreview = new List<CardPileAddResult>(4);
@@ -53,7 +53,7 @@ namespace STS2_AiACard.Cards.Ironclad
             {
                 var toDraw = CombatState.CreateCard<Toxic>(Owner);
                 CardCmd.ApplyKeyword(toDraw, CardKeyword.Ethereal);
-                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDraw, PileType.Draw, true,
+                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDraw, PileType.Draw, Owner,
                     CardPilePosition.Random));
             }
 
@@ -61,7 +61,7 @@ namespace STS2_AiACard.Cards.Ironclad
             {
                 var toDiscard = CombatState.CreateCard<Toxic>(Owner);
                 CardCmd.ApplyKeyword(toDiscard, CardKeyword.Ethereal);
-                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDiscard, PileType.Discard, true));
+                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDiscard, PileType.Discard, Owner));
             }
 
             if (LocalContext.IsMe(Owner) && drawDiscardPreview.Count > 0)

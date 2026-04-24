@@ -22,7 +22,7 @@ namespace STS2_AiACard.Cards.Regent
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             if (!Owner.Creature.HasPower<KingDislikesMathPower>())
-                await PowerCmd.Apply<KingDislikesMathPower>(Owner.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<KingDislikesMathPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

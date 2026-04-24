@@ -34,8 +34,8 @@ namespace STS2_AiACard.Cards.Ironclad
 
             foreach (var enemy in CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<WeakPower>(enemy, amount, Owner.Creature, this);
-                await PowerCmd.Apply<VulnerablePower>(enemy, amount, Owner.Creature, this);
+                await PowerCmd.Apply<WeakPower>(choiceContext, enemy, amount, Owner.Creature, this);
+                await PowerCmd.Apply<VulnerablePower>(choiceContext, enemy, amount, Owner.Creature, this);
             }
         }
     }

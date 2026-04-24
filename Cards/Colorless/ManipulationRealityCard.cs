@@ -20,7 +20,7 @@ namespace STS2_AiACard.Cards.Colorless
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             if (!Owner.Creature.HasPower<ManipulationRealityPower>())
-                await PowerCmd.Apply<ManipulationRealityPower>(Owner.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<ManipulationRealityPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()

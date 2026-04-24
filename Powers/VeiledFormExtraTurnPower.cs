@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace STS2_AiACard.Powers
 {
@@ -24,7 +25,7 @@ namespace STS2_AiACard.Powers
         {
             if (player.Creature != Owner)
                 return;
-            await PowerCmd.ModifyAmount(this, -1m, Owner, null);
+            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), this, -1m, Owner, null);
         }
     }
 }

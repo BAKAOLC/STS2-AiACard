@@ -25,7 +25,7 @@ namespace STS2_AiACard.Cards.Colorless
             ArgumentNullException.ThrowIfNull(Owner.PlayerCombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             if (!Owner.Creature.HasPower<SnakeEloPower>())
-                await PowerCmd.Apply<SnakeEloPower>(Owner.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<SnakeEloPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
             foreach (var c in Owner.PlayerCombatState.AllCards.ToList())
             {
                 if (c.Type != CardType.Attack || c is Snakebite)
