@@ -37,7 +37,7 @@ namespace STS2_AiACard.Cards.Ironclad
 
             await attack.Execute(choiceContext);
 
-            var healHp = attack.Results.Sum(r => r.UnblockedDamage);
+            var healHp = attack.Results.Sum(hit => hit.Sum(r => r.UnblockedDamage));
             if (healHp > 0)
                 await CreatureCmd.Heal(Owner.Creature, healHp);
 
