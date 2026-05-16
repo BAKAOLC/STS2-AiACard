@@ -25,7 +25,7 @@ namespace STS2_AiACard.Powers
         {
             if (player.Creature != Owner)
                 return;
-            await PowerCmd.ModifyAmount(new ThrowingPlayerChoiceContext(), this, -1m, Owner, null);
+            await PowerCmd.ModifyAmount(this, -1m, Owner, null);
         }
     }
 }

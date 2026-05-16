@@ -1,18 +1,13 @@
 {
   "id": "STS2_AiACard",
-  "pck_name": "STS2_AiACard",
   "name": "AiACard",
   "author": "AiA, OLC",
   "description": "Some cards for single player.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "has_pck": true,
   "has_dll": true,
   "affects_gameplay": true,
-  "min_game_version": "0.105.0",
   "dependencies": [
-    {
-      "id": "STS2-RitsuLib",
-      "min_version": "0.2.27"
-    }
+    "STS2-RitsuLib"
   ]
 }

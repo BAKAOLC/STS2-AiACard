@@ -51,7 +51,7 @@ namespace STS2_AiACard.Cards.Silent
             }
 
             var dex = DynamicVars[DexLossKey].IntValue;
-            await PowerCmd.Apply<PlagueResonanceDexterityDownPower>(choiceContext, Owner.Creature, dex, Owner.Creature,
+            await PowerCmd.Apply<PlagueResonanceDexterityDownPower>(Owner.Creature, dex, Owner.Creature,
                 this);
 
             await PlayerCmd.GainEnergy(DynamicVars[GainEnergyKey].IntValue, Owner);
@@ -63,7 +63,7 @@ namespace STS2_AiACard.Cards.Silent
                 if (target != null)
                 {
                     var art = DynamicVars[ArtifactStacksKey].IntValue;
-                    await PowerCmd.Apply<ArtifactPower>(choiceContext, target, art, null, this);
+                    await PowerCmd.Apply<ArtifactPower>(target, art, null, this);
                 }
             }
         }

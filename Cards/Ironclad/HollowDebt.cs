@@ -37,7 +37,7 @@ namespace STS2_AiACard.Cards.Ironclad
 
             await attack.Execute(choiceContext);
 
-            var healHp = attack.Results.Sum(hit => hit.Sum(r => r.UnblockedDamage));
+            var healHp = attack.Results.Sum(static r => r.UnblockedDamage);
             if (healHp > 0)
                 await CreatureCmd.Heal(Owner.Creature, healHp);
 
@@ -45,7 +45,7 @@ namespace STS2_AiACard.Cards.Ironclad
             {
                 var toHand = CombatState.CreateCard<Toxic>(Owner);
                 CardCmd.ApplyKeyword(toHand, CardKeyword.Ethereal);
-                await CardPileCmd.AddGeneratedCardToCombat(toHand, PileType.Hand, Owner);
+                await CardPileCmd.AddGeneratedCardToCombat(toHand, PileType.Hand, true);
             }
 
             var drawDiscardPreview = new List<CardPileAddResult>(4);
@@ -53,7 +53,7 @@ namespace STS2_AiACard.Cards.Ironclad
             {
                 var toDraw = CombatState.CreateCard<Toxic>(Owner);
                 CardCmd.ApplyKeyword(toDraw, CardKeyword.Ethereal);
-                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDraw, PileType.Draw, Owner,
+                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDraw, PileType.Draw, true,
                     CardPilePosition.Random));
             }
 
@@ -61,7 +61,7 @@ namespace STS2_AiACard.Cards.Ironclad
             {
                 var toDiscard = CombatState.CreateCard<Toxic>(Owner);
                 CardCmd.ApplyKeyword(toDiscard, CardKeyword.Ethereal);
-                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDiscard, PileType.Discard, Owner));
+                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDiscard, PileType.Discard, true));
             }
 
             if (LocalContext.IsMe(Owner) && drawDiscardPreview.Count > 0)

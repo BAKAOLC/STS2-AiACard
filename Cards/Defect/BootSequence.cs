@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Scaffolding.Content;
@@ -25,9 +26,11 @@ namespace STS2_AiACard.Cards.Defect
             new CalculationExtraVar(5m),
             new CalculatedBlockVar(ValueProp.Move).WithMultiplier(static (card, _) =>
             {
-                if (!CombatManager.Instance.IsInProgress || card.CombatState == null)
+                var combatState = card.CombatState;
+                if (!CombatManager.Instance.IsInProgress || combatState == null)
                     return 0m;
-                return card.EnergyCost.CapturedXValue;
+                var x = Math.Max(card.EnergyCost.CapturedXValue, card.EnergyCost.GetAmountToSpend());
+                return Hook.ModifyXValue(combatState, card, x);
             }),
         ];
 

@@ -1,5 +1,4 @@
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
 
@@ -11,9 +10,9 @@ namespace STS2_AiACard.Powers
 
         public override PowerStackType StackType => PowerStackType.Single;
 
-        public override Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
+        public override Task AfterCardGeneratedForCombat(CardModel card, bool addedByPlayer)
         {
-            if (creator is null || card.Owner?.Creature != Owner || !card.IsUpgradable)
+            if (!addedByPlayer || card.Owner?.Creature != Owner || !card.IsUpgradable)
                 return Task.CompletedTask;
             CardCmd.Upgrade(card);
             return Task.CompletedTask;

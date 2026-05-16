@@ -10,7 +10,7 @@ namespace STS2_AiACard.Powers
         public override PowerStackType StackType => PowerStackType.Counter;
 
         /// <summary>每次打出「天降恩赐」各为独立实例，层数不在同一图标上合并。</summary>
-        public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
+        public override bool IsInstanced => true;
 
         public override bool ShouldPowerBeRemovedAfterOwnerDeath() => false;
     }

@@ -28,7 +28,7 @@ namespace STS2_AiACard.Powers
             var spent = ec.CostsX ? ec.CapturedXValue : ec.GetWithModifiers(CostModifiers.All);
             var threshold = DynamicVars.Energy.IntValue;
             if (spent >= threshold && Owner.Player != null)
-                return PlayerCmd.GainEnergy(DynamicVars["RequiemGain"].IntValue, Owner.Player);
+                return PlayerCmd.GainEnergy(DynamicVars["RequiemGain"].IntValue * Amount, Owner.Player);
 
             return Task.CompletedTask;
         }

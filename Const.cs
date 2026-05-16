@@ -9,7 +9,7 @@ namespace STS2_AiACard
 
         public const string ModId = "STS2-AiACard";
         public const string Name = "AiACard";
-        public const string Version = "0.1.2";
+        public const string Version = "0.1.3";
 
         public static class Paths
         {
