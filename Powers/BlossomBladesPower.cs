@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace STS2_AiACard.Powers
 {
     /// <summary>
-    ///     剑花纷飞：本场战斗中君王之剑单次伤害视为 6；攻击次数由当前伤害数值按每 10 点 +1 次计算；铸造不再加伤害，每铸造 10 改为增加攻击次数。
+    ///     剑花纷飞：本场战斗中君王之剑单次伤害每层增加 6；攻击次数由当前伤害数值按每 10 点 +1 次计算；铸造不再加伤害，每铸造 10 改为增加攻击次数。
     /// </summary>
     public sealed class BlossomBladesPower : AiACardPowerBase
     {
@@ -21,14 +21,15 @@ namespace STS2_AiACard.Powers
 
         public override PowerType Type => PowerType.Buff;
 
-        public override PowerStackType StackType => PowerStackType.Single;
+        public override PowerStackType StackType => PowerStackType.Counter;
 
-        /// <summary>将当前伤害读数换算为段数，并把伤害压到 6；最终段数 = (剑花基础 + 铸造加成) × (1 + 剑圣层数)，与原版剑圣对默认 1 段的「每 1 层多一整轮」一致。</summary>
+        /// <summary>将当前伤害读数换算为段数，并按剑花层数设置单段伤害；最终段数 = (剑花基础 + 铸造加成) × (1 + 剑圣层数)，与原版剑圣对默认 1 段的「每 1 层多一整轮」一致。</summary>
         public static void NormalizeBlade(SovereignBlade blade)
         {
             var state = GetBladeState(blade);
             var dmg = blade.DynamicVars.Damage.BaseValue;
-            var alreadyNormalized = state.Initialized && dmg == BlossomDamagePerHit;
+            var desiredDamage = GetBlossomDamagePerHit(blade);
+            var alreadyNormalized = state.Initialized && dmg == state.AppliedDamage;
 
             if (!alreadyNormalized)
             {
@@ -43,8 +44,11 @@ namespace STS2_AiACard.Powers
                 }
 
                 state.Initialized = true;
-                blade.AddDamage(BlossomDamagePerHit - dmg);
             }
+
+            if (dmg != desiredDamage)
+                blade.AddDamage(desiredDamage - dmg);
+            state.AppliedDamage = desiredDamage;
 
             var sage = blade.Owner?.Creature.GetPower<SwordSagePower>()?.Amount ?? 0m;
             ApplyTotalRepeats(blade, sage);
@@ -83,6 +87,12 @@ namespace STS2_AiACard.Powers
         public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power,
             decimal amount, Creature? applier, CardModel? cardSource)
         {
+            if (power is BlossomBladesPower blossom && blossom.Owner == Owner)
+            {
+                NormalizeAllSovereignBlades(Owner);
+                return Task.CompletedTask;
+            }
+
             if (power is not SwordSagePower sage || sage.Owner != Owner)
                 return Task.CompletedTask;
             RefreshAllSovereignBladesMerged(Owner, sage.Amount);
@@ -168,6 +178,20 @@ namespace STS2_AiACard.Powers
             }
         }
 
+        private static void NormalizeAllSovereignBlades(Creature creature)
+        {
+            var player = creature.Player;
+            var pcs = player?.PlayerCombatState;
+            if (pcs == null)
+                return;
+            foreach (var item in pcs.AllCards)
+            {
+                if (item is not SovereignBlade blade)
+                    continue;
+                NormalizeBlade(blade);
+            }
+        }
+
         private static void ApplyTotalRepeats(SovereignBlade blade, decimal swordSageStackAmount)
         {
             var state = GetBladeState(blade);
@@ -185,6 +209,14 @@ namespace STS2_AiACard.Powers
 
             var coreHits = state.BaseBlossomHits + state.ForgeBonusHits;
             blade.SetRepeats(coreHits * (1m + swordSageStackAmount));
+        }
+
+        private static decimal GetBlossomDamagePerHit(SovereignBlade blade)
+        {
+            var stacks = blade.Owner?.Creature.GetPower<BlossomBladesPower>()?.Amount ?? 1m;
+            if (stacks < 1m)
+                stacks = 1m;
+            return BlossomDamagePerHit * stacks;
         }
 
         private static IEnumerable<SovereignBlade> EnumerateSovereignBlades(Player player)
@@ -220,6 +252,7 @@ namespace STS2_AiACard.Powers
                 target.BaseBlossomHits = upstreamState.BaseBlossomHits;
                 target.ForgeAccumulator = upstreamState.ForgeAccumulator;
                 target.ForgeBonusHits = upstreamState.ForgeBonusHits;
+                target.AppliedDamage = upstreamState.AppliedDamage;
                 target.Initialized = upstreamState.Initialized;
                 return;
             }
@@ -230,6 +263,7 @@ namespace STS2_AiACard.Powers
             public int BaseBlossomHits;
             public decimal ForgeAccumulator;
             public int ForgeBonusHits;
+            public decimal AppliedDamage;
             public bool Initialized;
         }
     }

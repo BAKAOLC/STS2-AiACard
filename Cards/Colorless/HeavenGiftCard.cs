@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
@@ -30,10 +31,11 @@ namespace STS2_AiACard.Cards.Colorless
             new CalculationExtraVar(12m),
             new CalculatedVar(CalculatedGoldKey).WithMultiplier(static (card, _) =>
             {
-                if (!CombatManager.Instance.IsInProgress || card.CombatState == null)
+                var combatState = card.CombatState;
+                if (!CombatManager.Instance.IsInProgress || combatState == null)
                     return 0m;
                 var x = Math.Max(card.EnergyCost.CapturedXValue, card.EnergyCost.GetAmountToSpend());
-                return x;
+                return Hook.ModifyXValue(combatState, card, x);
             }),
         ];
 
