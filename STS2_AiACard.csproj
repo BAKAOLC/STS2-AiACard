@@ -27,6 +27,7 @@
 
     <ItemGroup>
         <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="all"/>
+        <PackageReference Include="STS2.RitsuLib" Version="0.2.27"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -45,10 +46,6 @@
         <Content Remove=".godot\**"/>
         <EmbeddedResource Remove=".godot\**"/>
         <EmbeddedResource Remove="STS2-RitsuLib\**"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="$(RitsuLibDir)\STS2-RitsuLib.csproj"/>
     </ItemGroup>
 
     <Target Name="Copy Mod" AfterTargets="PostBuildEvent">
