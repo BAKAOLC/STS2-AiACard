@@ -16,8 +16,14 @@ namespace STS2_AiACard.Powers
     public sealed class BlossomBladesPower : AiACardPowerBase
     {
         public const decimal BlossomDamagePerHit = 6m;
+        public const decimal BlossomDamagePerHitUpgraded = 8m;
 
         private static readonly ConditionalWeakTable<SovereignBlade, BladeBlossomState> BladeStates = new();
+
+        public decimal DamagePerHitTotal { get; private set; }
+
+        public void AddDamageForStack(bool fromUpgradedCard) =>
+            DamagePerHitTotal += fromUpgradedCard ? BlossomDamagePerHitUpgraded : BlossomDamagePerHit;
 
         public override PowerType Type => PowerType.Buff;
 
@@ -213,7 +219,10 @@ namespace STS2_AiACard.Powers
 
         private static decimal GetBlossomDamagePerHit(SovereignBlade blade)
         {
-            var stacks = blade.Owner?.Creature.GetPower<BlossomBladesPower>()?.Amount ?? 1m;
+            var power = blade.Owner?.Creature.GetPower<BlossomBladesPower>();
+            if (power is { DamagePerHitTotal: > 0m })
+                return power.DamagePerHitTotal;
+            var stacks = power?.Amount ?? 1m;
             if (stacks < 1m)
                 stacks = 1m;
             return BlossomDamagePerHit * stacks;

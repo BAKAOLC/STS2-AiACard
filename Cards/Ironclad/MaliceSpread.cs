@@ -1,5 +1,7 @@
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -8,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard.Cards.Ironclad
 {
     /// <summary>恶意弥漫</summary>
-    public sealed class MaliceSpread() : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
+    public sealed class MaliceSpread() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies)
     {
         protected override bool HasEnergyCostX => true;
 
@@ -28,15 +30,26 @@ namespace STS2_AiACard.Cards.Ironclad
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             VfxCmd.PlayOnCreatureCenter(Owner.Creature, "vfx/vfx_flying_slash");
 
-            var amount = ResolveEnergyXValue();
+            var times = ResolveEnergyXValue();
             if (IsUpgraded)
-                amount++;
+                times++;
 
             foreach (var enemy in CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<WeakPower>(enemy, amount, Owner.Creature, this);
-                await PowerCmd.Apply<VulnerablePower>(enemy, amount, Owner.Creature, this);
+                for (var i = 0; i < times; i++)
+                {
+                    await PowerCmd.Apply<WeakPower>(enemy, 1, Owner.Creature, this);
+                    await PowerCmd.Apply<VulnerablePower>(enemy, 1, Owner.Creature, this);
+                }
             }
+        }
+
+        public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, CombatState combatState)
+        {
+            if (Pile?.Type != PileType.Exhaust || player != Owner)
+                return;
+
+            await CardCmd.AutoPlay(choiceContext, this, null);
         }
     }
 }

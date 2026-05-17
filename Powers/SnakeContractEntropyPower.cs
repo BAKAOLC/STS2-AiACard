@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Nodes.Cards;
 namespace STS2_AiACard.Powers
 {
     /// <summary>
-    ///     异蛇契约：与「混乱」类似，但额外将带固定辉星消耗的牌在本场战斗内的辉星消耗随机为 0～5。
+    ///     异蛇契约：与「混乱」类似，但额外将带固定辉星消耗的牌在本场战斗内的辉星消耗随机为 0～4。
     /// </summary>
     public sealed class SnakeContractEntropyPower : AiACardPowerBase
     {
@@ -33,7 +33,7 @@ namespace STS2_AiACard.Powers
             await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner, 1, Owner, null);
         }
 
-        /// <summary>随机化能量（0～3，与混乱一致）及固定辉星消耗（0～5，不含辉星 X）。</summary>
+        /// <summary>随机化能量（0～3，与混乱一致）及固定辉星消耗（0～4，不含辉星 X）。</summary>
         public static void ApplyRandomCosts(CardModel card, Player player)
         {
             var rng = player.RunState.Rng.CombatEnergyCosts;
@@ -47,7 +47,7 @@ namespace STS2_AiACard.Powers
 
             if (!card.HasStarCostX && card.CanonicalStarCost > 0)
             {
-                card.SetStarCostThisCombat(rng.NextInt(6));
+                card.SetStarCostThisCombat(rng.NextInt(5));
                 changed = true;
             }
 

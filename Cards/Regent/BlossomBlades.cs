@@ -26,6 +26,7 @@ namespace STS2_AiACard.Cards.Regent
             ArgumentNullException.ThrowIfNull(Owner.PlayerCombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await PowerCmd.Apply<BlossomBladesPower>(Owner.Creature, 1, Owner.Creature, this);
+            Owner.Creature.GetPower<BlossomBladesPower>()?.AddDamageForStack(IsUpgraded);
             foreach (var blade in Owner.PlayerCombatState.AllCards.Where(static c => !c.IsDupe)
                          .OfType<SovereignBlade>())
                 BlossomBladesPower.NormalizeBlade(blade);
@@ -33,7 +34,6 @@ namespace STS2_AiACard.Cards.Regent
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
         }
     }
 }
