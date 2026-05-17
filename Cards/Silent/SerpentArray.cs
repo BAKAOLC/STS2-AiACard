@@ -15,7 +15,7 @@ namespace STS2_AiACard.Cards.Silent
 
         protected override bool HasEnergyCostX => true;
 
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new(PoisonStacksKey, 3m)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new(PoisonStacksKey, 4m)];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<PoisonPower>()];

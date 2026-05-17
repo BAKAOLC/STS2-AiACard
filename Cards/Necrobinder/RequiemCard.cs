@@ -9,10 +9,10 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard.Cards.Necrobinder
 {
     /// <summary>骨独摇滚</summary>
-    public sealed class RequiemCard() : ModCardTemplate(3, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public sealed class RequiemCard() : ModCardTemplate(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new EnergyVar(2), new EnergyVar("RequiemGain", 1)];
+            [new EnergyVar(3), new EnergyVar("RequiemGain", 1)];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<RequiemEnergyPower>()];

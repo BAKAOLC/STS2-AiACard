@@ -14,7 +14,7 @@ namespace STS2_AiACard.Powers
         public override PowerStackType StackType => PowerStackType.Counter;
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new EnergyVar(2), new EnergyVar("RequiemGain", 1)];
+            [new EnergyVar(3), new EnergyVar("RequiemGain", 1)];
 
         public override Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {

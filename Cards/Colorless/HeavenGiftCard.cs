@@ -28,7 +28,7 @@ namespace STS2_AiACard.Cards.Colorless
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new CalculationBaseVar(0m),
-            new CalculationExtraVar(12m),
+            new CalculationExtraVar(20m),
             new CalculatedVar(CalculatedGoldKey).WithMultiplier(static (card, _) =>
             {
                 var combatState = card.CombatState;
