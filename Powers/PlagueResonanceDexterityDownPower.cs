@@ -46,9 +46,10 @@ namespace STS2_AiACard.Powers
             await PowerCmd.Apply<DexterityPower>(choiceContext, Owner, -amount, applier, cardSource, true);
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side,
+            IEnumerable<Creature> participants)
         {
-            if (side != Owner.Side) return;
+            if (side != Owner.Side || !participants.Contains(Owner)) return;
 
             Flash();
             _isRemoving = true;

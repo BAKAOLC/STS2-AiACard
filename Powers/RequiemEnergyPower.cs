@@ -21,16 +21,17 @@ namespace STS2_AiACard.Powers
             if (cardPlay.Card.Owner?.Creature != Owner)
                 return Task.CompletedTask;
 
-            if (cardPlay.Card is RequiemCard)
-                return Task.CompletedTask;
-
             var ec = cardPlay.Card.EnergyCost;
             var spent = ec.CostsX ? ec.CapturedXValue : ec.GetWithModifiers(CostModifiers.All);
             var threshold = DynamicVars.Energy.IntValue;
-            if (spent >= threshold && Owner.Player != null)
-                return PlayerCmd.GainEnergy(DynamicVars["RequiemGain"].IntValue * Amount, Owner.Player);
+            if (spent < threshold || Owner.Player == null)
+                return Task.CompletedTask;
 
-            return Task.CompletedTask;
+            var triggeringStacks = cardPlay.Card is RequiemCard ? Amount - 1 : Amount;
+            if (triggeringStacks <= 0)
+                return Task.CompletedTask;
+
+            return PlayerCmd.GainEnergy(DynamicVars["RequiemGain"].IntValue * triggeringStacks, Owner.Player);
         }
     }
 }
