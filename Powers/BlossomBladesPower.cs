@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -22,8 +23,15 @@ namespace STS2_AiACard.Powers
 
         public decimal DamagePerHitTotal { get; private set; }
 
-        public void AddDamageForStack(bool fromUpgradedCard) =>
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+            [new("BlossomDamage", BlossomDamagePerHit)];
+
+        public void AddDamageForStack(bool fromUpgradedCard)
+        {
             DamagePerHitTotal += fromUpgradedCard ? BlossomDamagePerHitUpgraded : BlossomDamagePerHit;
+            DynamicVars["BlossomDamage"].BaseValue = DamagePerHitTotal;
+            InvokeDisplayAmountChanged();
+        }
 
         public override PowerType Type => PowerType.Buff;
 
