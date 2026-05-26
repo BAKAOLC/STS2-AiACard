@@ -23,13 +23,15 @@ namespace STS2_AiACard.Powers
 
         public decimal DamagePerHitTotal { get; private set; }
 
+        public override int DisplayAmount => (int)CurrentDamagePerHit;
+
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new("BlossomDamage", BlossomDamagePerHit)];
 
         public void AddDamageForStack(bool fromUpgradedCard)
         {
             DamagePerHitTotal += fromUpgradedCard ? BlossomDamagePerHitUpgraded : BlossomDamagePerHit;
-            DynamicVars["BlossomDamage"].BaseValue = DamagePerHitTotal;
+            SyncDamageLocVar();
             InvokeDisplayAmountChanged();
         }
 
@@ -103,6 +105,7 @@ namespace STS2_AiACard.Powers
         {
             if (power is BlossomBladesPower blossom && blossom.Owner == Owner)
             {
+                blossom.SyncDamageLocVar();
                 NormalizeAllSovereignBlades(Owner);
                 return Task.CompletedTask;
             }
@@ -228,12 +231,27 @@ namespace STS2_AiACard.Powers
         private static decimal GetBlossomDamagePerHit(SovereignBlade blade)
         {
             var power = blade.Owner?.Creature.GetPower<BlossomBladesPower>();
-            if (power is { DamagePerHitTotal: > 0m })
-                return power.DamagePerHitTotal;
-            var stacks = power?.Amount ?? 1m;
-            if (stacks < 1m)
-                stacks = 1m;
-            return BlossomDamagePerHit * stacks;
+            return power?.CurrentDamagePerHit ?? BlossomDamagePerHit;
+        }
+
+        private decimal CurrentDamagePerHit
+        {
+            get
+            {
+                if (DamagePerHitTotal > 0m)
+                    return DamagePerHitTotal;
+
+                var stacks = (decimal)Amount;
+                if (stacks < 1m)
+                    stacks = 1m;
+
+                return BlossomDamagePerHit * stacks;
+            }
+        }
+
+        private void SyncDamageLocVar()
+        {
+            DynamicVars["BlossomDamage"].BaseValue = CurrentDamagePerHit;
         }
 
         private static IEnumerable<SovereignBlade> EnumerateSovereignBlades(Player player)
