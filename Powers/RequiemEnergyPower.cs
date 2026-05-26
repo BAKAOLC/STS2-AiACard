@@ -1,20 +1,40 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using STS2_AiACard.Cards.Necrobinder;
 
 namespace STS2_AiACard.Powers
 {
     public sealed class RequiemEnergyPower : AiACardPowerBase
     {
+        private const int TriggerEnergyThreshold = 3;
+        private const int EnergyGainPerStack = 1;
+
         public override PowerType Type => PowerType.Buff;
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new EnergyVar(3), new EnergyVar("RequiemGain", 1)];
+            [new EnergyVar(TriggerEnergyThreshold), new EnergyVar("RequiemGain", EnergyGainPerStack)];
+
+        public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+        {
+            SyncLocVarsFromAmount();
+            return Task.CompletedTask;
+        }
+
+        public override Task AfterPowerAmountChanged(PowerModel power, decimal amount, Creature? applier,
+            CardModel? cardSource)
+        {
+            if (power == this)
+                SyncLocVarsFromAmount();
+
+            return Task.CompletedTask;
+        }
 
         public override Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {
@@ -31,7 +51,13 @@ namespace STS2_AiACard.Powers
             if (triggeringStacks <= 0)
                 return Task.CompletedTask;
 
-            return PlayerCmd.GainEnergy(DynamicVars["RequiemGain"].IntValue * triggeringStacks, Owner.Player);
+            return PlayerCmd.GainEnergy(EnergyGainPerStack * triggeringStacks, Owner.Player);
+        }
+
+        private void SyncLocVarsFromAmount()
+        {
+            DynamicVars["RequiemGain"].BaseValue = EnergyGainPerStack * Amount;
+            InvokeDisplayAmountChanged();
         }
     }
 }
