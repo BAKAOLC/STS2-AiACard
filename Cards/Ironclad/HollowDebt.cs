@@ -31,7 +31,7 @@ namespace STS2_AiACard.Cards.Ironclad
             await CreatureCmd.TriggerAnim(Owner.Creature, "Attack", Owner.Character.AttackAnimDelay);
 
             var attack = DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(CombatState)
                 .WithHitFx("vfx/vfx_attack_slash");
 

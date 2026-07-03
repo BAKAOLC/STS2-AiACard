@@ -46,7 +46,7 @@ namespace STS2_AiACard.Cards.Defect
             if (hits < 1)
                 hits = 1;
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitCount(hits)
                 .WithHitFx("vfx/vfx_attack_slash")
