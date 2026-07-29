@@ -10,6 +10,8 @@ namespace STS2_AiACard.Cards.Ironclad
     /// <summary>啃咬</summary>
     public sealed class GnawBite() : ModCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
+        public override bool CanBeGeneratedInCombat => false;
+
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new DamageVar(6m, ValueProp.Move),

@@ -17,6 +17,8 @@ namespace STS2_AiACard.Cards.Colorless
     {
         private const string CalculatedGoldKey = "CalculatedGold";
 
+        public override bool CanBeGeneratedInCombat => false;
+
         protected override bool HasEnergyCostX => true;
 
         public override IEnumerable<CardKeyword> CanonicalKeywords =>

@@ -13,6 +13,8 @@ namespace STS2_AiACard.Cards.Ironclad
     /// <summary>虚妄代偿</summary>
     public sealed class HollowDebt() : ModCardTemplate(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
     {
+        public override bool CanBeGeneratedInCombat => false;
+
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromCard<Toxic>()];
 

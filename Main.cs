@@ -51,6 +51,15 @@ namespace STS2_AiACard
                         "剑花纷飞与剑圣合并补丁未能应用，本 Mod 已禁用。"))
                     return;
 
+                var plagueResonancePatcher =
+                    RitsuLibFramework.CreatePatcher(Const.ModId, "plague_resonance", "荒疫共鸣");
+                plagueResonancePatcher.RegisterPatch<PlagueResonanceArtifactScalingPatch>();
+                if (!RitsuLibFramework.ApplyRequiredPatcher(
+                        plagueResonancePatcher,
+                        () => IsModActive = false,
+                        "荒疫共鸣相关补丁未能应用，本 Mod 已禁用。"))
+                    return;
+
                 AiACardContentRegistrar.RegisterAll();
 
                 IsModActive = true;

@@ -11,6 +11,8 @@ namespace STS2_AiACard.Cards.Colorless
     /// <summary>蛇咬 ELO</summary>
     public sealed class SnakeEloCard() : ModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
+        public override bool CanBeGeneratedInCombat => false;
+
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
