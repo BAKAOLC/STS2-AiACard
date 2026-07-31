@@ -1,5 +1,17 @@
 <Project Sdk="Godot.NET.Sdk/4.5.1">
     <Import Project=".\local.props" Condition="Exists('.\local.props')"/>
+
+    <PropertyGroup Label="Compatibility">
+        <Sts2ApiCompat Condition="'$(Sts2ApiCompat)' == ''">0.110.0</Sts2ApiCompat>
+        <Sts2ApiSignatureDir Condition="'$(Sts2ApiSignatureRoot)' != ''">$(Sts2ApiSignatureRoot)\$(Sts2ApiCompat)</Sts2ApiSignatureDir>
+        <Sts2DataDir Condition="'$(Sts2ApiSignatureRoot)' != ''">$(Sts2ApiSignatureDir)</Sts2DataDir>
+        <IntermediateOutputPath>$(MSBuildProjectDirectory)\.godot\mono\temp\obj\$(Configuration)\$(Sts2ApiCompat)\</IntermediateOutputPath>
+        <OutputPath>$(MSBuildProjectDirectory)\.godot\mono\temp\bin\$(Configuration)\$(Sts2ApiCompat)\</OutputPath>
+        <DefineConstants Condition="'$(Sts2ApiCompat)' == '0.110.0'">$(DefineConstants);STS2_AT_LEAST_0_110_0</DefineConstants>
+        <RitsuLibPackageId Condition="'$(Sts2ApiCompat)' == '0.110.0'">STS2.RitsuLib</RitsuLibPackageId>
+        <RitsuLibPackageId Condition="'$(Sts2ApiCompat)' != '0.110.0'">STS2.RitsuLib.Compat.$(Sts2ApiCompat)</RitsuLibPackageId>
+    </PropertyGroup>
+
     <PropertyGroup>
         <RootNamespace>STS2_AiACard</RootNamespace>
         <TargetFramework>net9.0</TargetFramework>
@@ -11,13 +23,21 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <GodotExportPreset>BasicExport</GodotExportPreset>
-        <ModOutputDir>$(Sts2Dir)\mods\$(MSBuildProjectName)\</ModOutputDir>
-        <ModPckPath>$(ModOutputDir)$(MSBuildProjectName).pck</ModPckPath>
+        <GodotExportPreset Condition="'$(GodotExportPreset)' == ''">BasicExport</GodotExportPreset>
+        <ModOutputDir Condition="'$(ModOutputDir)' == ''">$(Sts2Dir)\mods\$(MSBuildProjectName)\</ModOutputDir>
+        <ModPckPath Condition="'$(ModPckPath)' == ''">$(ModOutputDir)$(MSBuildProjectName).pck</ModPckPath>
+        <ModManifestSource Condition="'$(ModManifestSource)' == ''">$(MSBuildProjectDirectory)\mod_manifest.json</ModManifestSource>
     </PropertyGroup>
 
     <Target Name="EnsureLocalProps" BeforeTargets="PrepareForBuild" Condition="!Exists('.\local.props')">
         <Error Text="Missing '.\local.props'. Copy '.\local.props.template' to '.\local.props', then update 'Sts2Dir' \ 'GodotExe' for your local environment."/>
+    </Target>
+
+    <Target Name="ValidateSts2ApiCompat" BeforeTargets="ResolveAssemblyReferences">
+        <Error Condition="'$(Sts2ApiCompat)' != '0.107.1' and '$(Sts2ApiCompat)' != '0.110.0'"
+               Text="Unsupported Sts2ApiCompat '$(Sts2ApiCompat)'. Supported versions: 0.107.1;0.110.0."/>
+        <Error Condition="'$(Sts2ApiSignatureRoot)' != '' and !Exists('$(Sts2ApiSignatureDir)\sts2.dll')"
+               Text="Missing STS2 API signature assembly: '$(Sts2ApiSignatureDir)\sts2.dll'."/>
     </Target>
 
     <PropertyGroup>
@@ -27,10 +47,14 @@
 
     <ItemGroup>
         <PackageReference Include="Krafs.Publicizer" Version="2.3.0" PrivateAssets="all"/>
-        <PackageReference Include="STS2.RitsuLib" Version="0.3.0"/>
+        <PackageReference Include="$(RitsuLibPackageId)" Version="0.5.0"/>
     </ItemGroup>
 
     <ItemGroup>
+        <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+            <_Parameter1>Sts2ApiCompat</_Parameter1>
+            <_Parameter2>$(Sts2ApiCompat)</_Parameter2>
+        </AssemblyAttribute>
         <Publicize Include="sts2" IncludeCompilerGeneratedMembers="false" IncludeVirtualMembers="false"/>
     </ItemGroup>
 
@@ -49,16 +73,17 @@
     </ItemGroup>
 
     <Target Name="Copy Mod" AfterTargets="PostBuildEvent">
-        <Message Text="Copying mod to Slay the Spire 2 mods folder..." Importance="high"/>
+        <Message Text="Copying mod build outputs to $(ModOutputDir)..." Importance="high"/>
         <MakeDir Directories="$(ModOutputDir)"/>
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModOutputDir)"/>
-        <Copy SourceFiles="$(MSBuildProjectDirectory)\mod_manifest.json" DestinationFolder="$(ModOutputDir)"/>
+        <Copy SourceFiles="$(ModManifestSource)" DestinationFiles="$(ModOutputDir)mod_manifest.json"/>
     </Target>
 
     <Target Name="Export Mod PCK" AfterTargets="Build" Condition="'$(RunPckExport)' == 'true' and '$(STS2_SKIP_PCK_EXPORT)' != '1' and Exists('$(GodotExe)')">
         <Message Text="Exporting mod PCK with MegaDot..." Importance="high"/>
         <MakeDir Directories="$(ModOutputDir)"/>
-        <Exec Command="&quot;$(GodotExe)&quot; --headless --path &quot;$(MSBuildProjectDirectory)&quot; --export-pack &quot;$(GodotExportPreset)&quot; &quot;$(ModPckPath)&quot;" EnvironmentVariables="STS2_SKIP_PCK_EXPORT=1"/>
+        <Exec Command="&quot;$(GodotExe)&quot; --headless --path &quot;$(MSBuildProjectDirectory)&quot; --export-pack &quot;$(GodotExportPreset)&quot; &quot;$(ModPckPath)&quot;"
+              EnvironmentVariables="STS2_SKIP_PCK_EXPORT=1;ModOutputDir=$(ModOutputDir);ModManifestSource=$(ModManifestSource);Sts2ApiCompat=$(Sts2ApiCompat);Sts2ApiSignatureRoot=$(Sts2ApiSignatureRoot)"/>
     </Target>
 
     <Target Name="Warn Missing Godot" AfterTargets="Build" Condition="'$(RunPckExport)' == 'true' and '$(STS2_SKIP_PCK_EXPORT)' != '1' and !Exists('$(GodotExe)')">

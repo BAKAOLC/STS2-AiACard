@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Orbs;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2_AiACard.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard.Cards.Defect
@@ -46,7 +47,7 @@ namespace STS2_AiACard.Cards.Defect
             if (hits < 1)
                 hits = 1;
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this, cardPlay)
+                .FromCardCompat(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitCount(hits)
                 .WithHitFx("vfx/vfx_attack_slash")
