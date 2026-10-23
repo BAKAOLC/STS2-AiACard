@@ -61,6 +61,42 @@ namespace STS2_AiACard
                     return;
 
                 AiACardContentRegistrar.RegisterAll();
+                ContentOptions.Initialize();
+                Utils.SmokeEscape.Initialize();
+                var contentPatcher = RitsuLibFramework.CreatePatcher(Const.ModId, "content_options", "Content options");
+                contentPatcher.RegisterPatch<ContentOptionsCardPoolPatch>();
+                contentPatcher.RegisterPatch<ContentOptionsGenerationPatch>();
+                contentPatcher.RegisterPatch<ContentOptionsRelicPoolPatch>();
+                contentPatcher.RegisterPatch<ContentOptionsPotionPoolPatch>();
+                contentPatcher.RegisterPatch<CardLibraryVisibilityPatch>();
+                contentPatcher.RegisterPatch<VeiledFormExtraTurnPatch>();
+                contentPatcher.RegisterPatch<VeiledFormPaelsEyePatch>();
+                contentPatcher.RegisterPatch<RandomCostStarPatch>();
+                contentPatcher.RegisterPatch<DarvOwnedRelicOptionsPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeAlivePatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeRunLossPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeTurnPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapePlayPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapePotionPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeWinCheckPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeEndingPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeRewardPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeParticipantsPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapePlayerLookupPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeReadyPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeTargetPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeHealthPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeOrbTurnPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeHoverPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeResourcesPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeMaxHealthPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeKillPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeUiActivationPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeHandInputPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeEndTurnEnabledPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeEndTurnInputPatch>();
+                if (!contentPatcher.PatchAll())
+                    return;
 
                 IsModActive = true;
                 Logger.Info("Mod initialization complete - Mod is now ACTIVE");

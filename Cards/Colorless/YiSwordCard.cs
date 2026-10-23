@@ -10,10 +10,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard.Cards.Colorless
 {
     /// <summary>义之剑：打出时强化仁之剑伤害；若仁之剑已在己方任一战斗牌堆中则置入手牌。</summary>
-    public sealed class YiSwordCard() : ModCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public sealed class YiSwordCard() : ModCardTemplate(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        public override bool CanBeGeneratedInCombat => false;
-
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         // See RenSwordCard.AdditionalHoverTips — avoid FromCardWithCardHoverTips (mutual recursion).
@@ -21,7 +19,7 @@ namespace STS2_AiACard.Cards.Colorless
             [HoverTipFactory.FromCard<RenSwordCard>()];
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new DamageVar(3m, ValueProp.Move)];
+            [new DamageVar(5m, ValueProp.Move), new CardsVar(2), new DynamicVar("SisterDamage", 3m)];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.YiSword, Const.Paths.CardPortraits.YiSword);
@@ -29,19 +27,19 @@ namespace STS2_AiACard.Cards.Colorless
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target);
-            PairedSwordsHelper.BuffSisterDamage<RenSwordCard>(Owner, 3m);
+            PairedSwordsHelper.BuffSisterDamage<RenSwordCard>(Owner, DynamicVars["SisterDamage"].BaseValue);
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCardCompat(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
             await PairedSwordsHelper.MoveSisterToHandIfOwned<RenSwordCard>(Owner, this);
         }
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
-            DynamicVars.Damage.UpgradeValueBy(3m);
+            DynamicVars["SisterDamage"].UpgradeValueBy(2m);
         }
     }
 }

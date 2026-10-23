@@ -1,4 +1,8 @@
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.RelicPools;
+using MegaCrit.Sts2.Core.Models.PotionPools;
+using STS2_AiACard.Potions;
+using STS2_AiACard.Relics;
 using STS2_AiACard.Cards.Colorless;
 using STS2_AiACard.Cards.Defect;
 using STS2_AiACard.Cards.Ironclad;
@@ -14,6 +18,8 @@ namespace STS2_AiACard.Content.Descriptors
     {
         public static IReadOnlyList<IContentRegistrationEntry> ContentEntries { get; } =
         [
+            new RelicRegistrationEntry<EventRelicPool, DarvConsignment>(),
+            new PotionRegistrationEntry<SharedPotionPool, SmokeBomb>(),
             new PowerRegistrationEntry<VeiledFormPower>(),
             new PowerRegistrationEntry<VeiledFormExtraTurnPower>(),
             new PowerRegistrationEntry<PlagueResonanceDexterityDownPower>(),

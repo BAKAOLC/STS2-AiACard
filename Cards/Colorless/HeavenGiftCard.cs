@@ -17,7 +17,7 @@ namespace STS2_AiACard.Cards.Colorless
     {
         private const string CalculatedGoldKey = "CalculatedGold";
 
-        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedInCombat => Utils.GenerationPolicy.AllowsPotionGeneration();
 
         protected override bool HasEnergyCostX => true;
 

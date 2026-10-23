@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+using STS2RitsuLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -19,7 +19,7 @@ namespace STS2_AiACard.Powers
         public const decimal BlossomDamagePerHit = 6m;
         public const decimal BlossomDamagePerHitUpgraded = 8m;
 
-        private static readonly ConditionalWeakTable<SovereignBlade, BladeBlossomState> BladeStates = new();
+        private static readonly AttachedState<SovereignBlade, BladeBlossomState> BladeStates = new();
 
         public decimal DamagePerHitTotal { get; private set; }
 
@@ -268,7 +268,7 @@ namespace STS2_AiACard.Powers
         /// </summary>
         private static BladeBlossomState GetBladeState(SovereignBlade blade)
         {
-            return BladeStates.GetValue(blade, static key =>
+            return BladeStates.GetOrAdd(blade, static key =>
             {
                 var created = new BladeBlossomState();
                 TryCopyInitializedStateFromDupeChain(key, created);

@@ -14,7 +14,7 @@ namespace STS2_AiACard.Cards.Ironclad
     /// <summary>虚妄代偿</summary>
     public sealed class HollowDebt() : ModCardTemplate(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
     {
-        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedInCombat => Utils.GenerationPolicy.AllowsPotionGeneration();
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromCard<Toxic>()];
@@ -44,28 +44,19 @@ namespace STS2_AiACard.Cards.Ironclad
             if (healHp > 0)
                 await CreatureCmd.Heal(Owner.Creature, healHp);
 
-            for (var i = 0; i < 2; i++)
-            {
-                var toHand = CombatState.CreateCard<Toxic>(Owner);
-                CardCmd.ApplyKeyword(toHand, CardKeyword.Ethereal);
-                await CardPileCmd.AddGeneratedCardToCombat(toHand, PileType.Hand, Owner);
-            }
+            var toHand = CombatState.CreateCard<Toxic>(Owner);
+            CardCmd.ApplyKeyword(toHand, CardKeyword.Ethereal);
+            await CardPileCmd.AddGeneratedCardToCombat(toHand, PileType.Hand, Owner);
 
-            var drawDiscardPreview = new List<CardPileAddResult>(4);
-            for (var i = 0; i < 2; i++)
-            {
-                var toDraw = CombatState.CreateCard<Toxic>(Owner);
-                CardCmd.ApplyKeyword(toDraw, CardKeyword.Ethereal);
-                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDraw, PileType.Draw, Owner,
-                    CardPilePosition.Random));
-            }
+            var drawDiscardPreview = new List<CardPileAddResult>(2);
+            var toDraw = CombatState.CreateCard<Toxic>(Owner);
+            CardCmd.ApplyKeyword(toDraw, CardKeyword.Ethereal);
+            drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDraw, PileType.Draw, Owner,
+                CardPilePosition.Random));
 
-            for (var i = 0; i < 2; i++)
-            {
-                var toDiscard = CombatState.CreateCard<Toxic>(Owner);
-                CardCmd.ApplyKeyword(toDiscard, CardKeyword.Ethereal);
-                drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDiscard, PileType.Discard, Owner));
-            }
+            var toDiscard = CombatState.CreateCard<Toxic>(Owner);
+            CardCmd.ApplyKeyword(toDiscard, CardKeyword.Ethereal);
+            drawDiscardPreview.Add(await CardPileCmd.AddGeneratedCardToCombat(toDiscard, PileType.Discard, Owner));
 
             if (LocalContext.IsMe(Owner) && drawDiscardPreview.Count > 0)
             {

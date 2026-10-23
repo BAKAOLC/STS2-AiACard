@@ -29,7 +29,7 @@ namespace STS2_AiACard.Cards.Ironclad
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             VfxCmd.PlayOnCreatureCenter(Owner.Creature, "vfx/vfx_flying_slash");
 
-            var times = ResolveEnergyXValue();
+            var times = ResolveEnergyXValue() + 1;
             if (IsUpgraded)
                 times++;
 
@@ -48,7 +48,8 @@ namespace STS2_AiACard.Cards.Ironclad
             if (Pile?.Type != PileType.Exhaust || player != Owner)
                 return;
 
-            await CardCmd.AutoPlay(choiceContext, this, null);
+            EnergyCost.CapturedXValue = Math.Max(0, player.PlayerCombatState!.Energy - 2);
+            await CardCmd.AutoPlay(choiceContext, this, null, skipXCapture: true);
         }
     }
 }

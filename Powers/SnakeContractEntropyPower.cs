@@ -17,7 +17,7 @@ namespace STS2_AiACard.Powers
     {
         public override PowerType Type => PowerType.Buff;
 
-        public override PowerStackType StackType => PowerStackType.Single;
+        public override PowerStackType StackType => PowerStackType.Counter;
 
         public override Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
         {
@@ -32,7 +32,7 @@ namespace STS2_AiACard.Powers
         {
             if (side != CombatSide.Player || Owner.IsMonster || !participants.Contains(Owner))
                 return;
-            await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner, 1, Owner, null);
+            await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner, Amount, Owner, null);
         }
 
         /// <summary>随机化能量（0～3，与混乱一致）及固定辉星消耗（0～4，不含辉星 X）。</summary>
@@ -47,14 +47,20 @@ namespace STS2_AiACard.Powers
                 changed = true;
             }
 
-            if (!card.HasStarCostX && card.CanonicalStarCost > 0)
-            {
-                card.SetStarCostThisCombat(rng.NextInt(5));
-                changed = true;
-            }
+            changed |= RandomizeStarCost(card, player);
 
             if (changed)
                 NCard.FindOnTable(card)?.PlayRandomizeCostAnim();
+        }
+
+        internal static bool RandomizeStarCost(CardModel card, Player player)
+        {
+            if (card.HasStarCostX || card.CanonicalStarCost <= 0)
+                return false;
+            var stars = player.RunState.Rng.CombatEnergyCosts.NextInt(5);
+            var energy = Math.Max(0, card.EnergyCost.GetWithModifiers(MegaCrit.Sts2.Core.Entities.Cards.CostModifiers.All));
+            card.SetStarCostThisCombat(Math.Min(stars, Math.Max(0, 6 - 2 * energy)));
+            return true;
         }
     }
 }

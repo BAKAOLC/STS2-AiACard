@@ -11,7 +11,7 @@ namespace STS2_AiACard.Cards.Ironclad
     /// <summary>啃咬</summary>
     public sealed class GnawBite() : ModCardTemplate(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
-        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedInCombat => Utils.GenerationPolicy.AllowsPotionGeneration();
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [

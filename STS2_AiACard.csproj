@@ -65,6 +65,7 @@
 
     <ItemGroup>
         <Compile Remove=".godot\**"/>
+        <Compile Remove="Universal\**"/>
         <Compile Remove="STS2-RitsuLib\**"/>
         <None Remove=".godot\**"/>
         <Content Remove=".godot\**"/>

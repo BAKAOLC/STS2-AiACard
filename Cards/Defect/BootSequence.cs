@@ -22,16 +22,8 @@ namespace STS2_AiACard.Cards.Defect
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new CalculationBaseVar(0m),
-            new CalculationExtraVar(5m),
-            new CalculatedBlockVar(ValueProp.Move).WithMultiplier(static (card, _) =>
-            {
-                var combatState = card.CombatState;
-                if (!CombatManager.Instance.IsInProgress || combatState == null)
-                    return 0m;
-                var x = Math.Max(card.EnergyCost.CapturedXValue, card.EnergyCost.GetAmountToSpend());
-                return Hook.ModifyXValue(combatState, card, x);
-            }),
+            new BlockVar(7m, ValueProp.Move),
+            new DynamicVar("ExtraHits", 0m),
         ];
 
         public override CardAssetProfile AssetProfile =>
@@ -43,14 +35,13 @@ namespace STS2_AiACard.Cards.Defect
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            var x = ResolveEnergyXValue();
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.CalculatedBlock.Calculate(cardPlay.Target),
-                ValueProp.Move,
-                cardPlay);
+            var x = ResolveEnergyXValue() + DynamicVars["ExtraHits"].IntValue;
+            for (var i = 0; i < x; i++)
+                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue, ValueProp.Move, cardPlay);
             if (x <= 0)
                 return;
 
-            var prefs = new CardSelectorPrefs(new("gameplay_ui", "CHOOSE_CARD_HEADER"), 0, x);
+            var prefs = new CardSelectorPrefs(new("cards", "STS2_AI_A_CARD_CARD_BOOT_SEQUENCE.retainPrompt"), 0, x);
             var chosen = await CardSelectCmd.FromHand(choiceContext, Owner, prefs, null, this);
             foreach (var c in chosen)
                 CardCmd.ApplyKeyword(c, CardKeyword.Retain);
@@ -58,7 +49,7 @@ namespace STS2_AiACard.Cards.Defect
 
         protected override void OnUpgrade()
         {
-            DynamicVars.CalculationExtra.UpgradeValueBy(2m);
+            DynamicVars["ExtraHits"].UpgradeValueBy(1m);
         }
     }
 }

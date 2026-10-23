@@ -11,8 +11,10 @@ namespace STS2_AiACard.Cards.Colorless
     /// <summary>准备治疗</summary>
     public sealed class PostCombatTreatment() : ModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
+        public override bool CanBeGeneratedInCombat => Utils.GenerationPolicy.AllowsPotionGeneration();
+
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new HealVar(6m)];
+            [new HealVar(7m)];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<PostCombatHealPower>()];

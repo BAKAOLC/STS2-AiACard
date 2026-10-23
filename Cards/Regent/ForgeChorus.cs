@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard.Cards.Regent
 {
     /// <summary>全力锻造</summary>
-    public sealed class ForgeChorus() : ModCardTemplate(0, CardType.Skill, CardRarity.Basic, TargetType.Self)
+    public sealed class ForgeChorus() : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         protected override bool HasEnergyCostX => true;
 
