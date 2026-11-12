@@ -7,15 +7,20 @@ namespace AiACard.Universal
     [ModInitializer(nameof(Initialize))]
     public static class Bootstrap
     {
-        private static readonly object Sync = new();
+        private static readonly Lock Sync = new();
         private static Assembly? _payload;
         private static bool _initialized;
 
         public static string SelectApiVersion(Assembly gameAssembly)
         {
+            if (gameAssembly.GetType("MegaCrit.Sts2.Core.Combat.CombatManager", true)!
+                    .GetMethod("TryUndoReadyToEndTurn") != null)
+                return "0.113.0";
             var cardType = gameAssembly.GetType("MegaCrit.Sts2.Core.Models.CardModel", true)!;
             return cardType.GetMethod("GetResultLocationForCardPlay", BindingFlags.NonPublic | BindingFlags.Instance)
-                != null ? "0.111.0" : "0.107.1";
+                   != null
+                ? "0.111.0"
+                : "0.107.1";
         }
 
         public static Assembly LoadPayload()
@@ -27,7 +32,8 @@ namespace AiACard.Universal
                 var entry = typeof(Bootstrap).Assembly;
                 var version = SelectApiVersion(typeof(ModManager).Assembly);
                 using var stream = entry.GetManifestResourceStream($"payload.{version}.dll")
-                    ?? throw new InvalidOperationException($"Missing embedded implementation for {version}.");
+                                   ?? throw new InvalidOperationException(
+                                       $"Missing embedded implementation for {version}.");
                 var context = AssemblyLoadContext.GetLoadContext(entry) ?? AssemblyLoadContext.Default;
                 _payload = context.LoadFromStream(stream);
                 return _payload;
@@ -51,12 +57,11 @@ namespace AiACard.Universal
                 else
                     ModManager.OnModDetected += mod =>
                     {
-                        if (mod.manifest?.id == modId)
-                        {
-                            var field = mod.GetType().GetField("assembly")
-                                ?? throw new MissingFieldException(mod.GetType().FullName, "assembly");
-                            field.SetValue(mod, payload);
-                        }
+                        if (mod.manifest?.id != modId)
+                            return;
+                        var field = mod.GetType().GetField("assembly")
+                                    ?? throw new MissingFieldException(mod.GetType().FullName, "assembly");
+                        field.SetValue(mod, payload);
                     };
 
                 var main = payload.GetType($"{modId}.Main", true)!;

@@ -16,7 +16,7 @@ $godotExe = [string]$local.Project.PropertyGroup.GodotExe
 if (!(Test-Path -LiteralPath $godotExe -PathType Leaf)) { throw "MegaDot executable not found: $godotExe" }
 if ($env:STS2_SKIP_PCK_EXPORT -eq '1') { throw 'PCK export must be enabled for universal packaging.' }
 $modDir = Join-Path $gameDir "mods\$modName"
-foreach ($version in '0.107.1', '0.111.0') {
+foreach ($version in '0.107.1', '0.111.0', '0.113.0') {
     $buildStarted = [DateTime]::UtcNow
     & dotnet build $project.FullName --nologo -v:minimal "-p:Configuration=$Configuration" "-p:Sts2ApiCompat=$version" "-p:Sts2ApiSignatureRoot=$Sts2ApiSignatureRoot"
     if ($LASTEXITCODE -ne 0) { throw "Build failed for $version" }

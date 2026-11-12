@@ -1,4 +1,4 @@
 {
   "STS2_AI_A_CARD_POTION_SMOKE_BOMB.title": "Smoke Bomb",
-  "STS2_AI_A_CARD_POTION_SMOKE_BOMB.description": "The target player escapes combat.\nIf combat is not won, no rewards are received.\nCannot be used in boss or event combats."
+  "STS2_AI_A_CARD_POTION_SMOKE_BOMB.description": "The target player escapes combat.\nIf combat is not won, no rewards are received.\nAt the end of combat, they heal 3 HP for each round elapsed after escaping, up to 30 HP.\nCannot be used in boss or event combats."
 }

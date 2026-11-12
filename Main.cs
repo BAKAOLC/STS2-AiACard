@@ -1,10 +1,11 @@
 using System.Reflection;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
-using STS2_AiACard.Content;
-using STS2_AiACard.Patches;
 using STS2RitsuLib;
 using STS2RitsuLib.Patching.Core;
+using STS2_AiACard.Content;
+using STS2_AiACard.Patches;
+using STS2_AiACard.Utils;
 
 namespace STS2_AiACard
 {
@@ -62,7 +63,7 @@ namespace STS2_AiACard
 
                 AiACardContentRegistrar.RegisterAll();
                 ContentOptions.Initialize();
-                Utils.SmokeEscape.Initialize();
+                SmokeEscape.Initialize();
                 var contentPatcher = RitsuLibFramework.CreatePatcher(Const.ModId, "content_options", "Content options");
                 contentPatcher.RegisterPatch<ContentOptionsCardPoolPatch>();
                 contentPatcher.RegisterPatch<ContentOptionsGenerationPatch>();
@@ -80,6 +81,7 @@ namespace STS2_AiACard
                 contentPatcher.RegisterPatch<SmokeEscapePotionPatch>();
                 contentPatcher.RegisterPatch<SmokeEscapeWinCheckPatch>();
                 contentPatcher.RegisterPatch<SmokeEscapeEndingPatch>();
+                contentPatcher.RegisterPatch<SmokeEscapeHealingPatch>();
                 contentPatcher.RegisterPatch<SmokeEscapeRewardPatch>();
                 contentPatcher.RegisterPatch<SmokeEscapeParticipantsPatch>();
                 contentPatcher.RegisterPatch<SmokeEscapePlayerLookupPatch>();

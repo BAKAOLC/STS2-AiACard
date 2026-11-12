@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <Sts2ApiSignatureRoot Condition="'$(Sts2ApiSignatureRoot)' == ''">$(MSBuildThisFileDirectory)..\..\sts2-api-signatures</Sts2ApiSignatureRoot>
+        <ModAssemblyName Condition="'$(ModAssemblyName)' == ''">STS2_AiACard</ModAssemblyName>
+        <PayloadRoot Condition="'$(PayloadRoot)' == ''">$(MSBuildThisFileDirectory)..\.godot\universal\payloads</PayloadRoot>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -10,6 +13,7 @@
         <Reference Include="sts2" HintPath="$(Sts2ApiSignatureRoot)\0.107.1\sts2.dll" Private="false"/>
         <EmbeddedResource Include="$(PayloadRoot)\0.107.1\$(ModAssemblyName).dll" LogicalName="payload.0.107.1.dll"/>
         <EmbeddedResource Include="$(PayloadRoot)\0.111.0\$(ModAssemblyName).dll" LogicalName="payload.0.111.0.dll"/>
+        <EmbeddedResource Include="$(PayloadRoot)\0.113.0\$(ModAssemblyName).dll" LogicalName="payload.0.113.0.dll"/>
         <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
             <_Parameter1>ModAssemblyName</_Parameter1>
             <_Parameter2>$(ModAssemblyName)</_Parameter2>

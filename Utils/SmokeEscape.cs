@@ -1,4 +1,3 @@
-using STS2RitsuLib.Utils;
 using System.Reflection;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
@@ -7,11 +6,12 @@ using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Runs;
 using STS2RitsuLib.RunData;
+using STS2RitsuLib.Utils;
 
 namespace STS2_AiACard.Utils
 {
@@ -23,14 +23,13 @@ namespace STS2_AiACard.Utils
 
     internal static class SmokeEscape
     {
-        private sealed class EscapeState
-        {
-            internal bool Active = true;
-            internal HashSet<Player> Players { get; } = [];
-        }
-
         private static readonly AttachedState<ICombatState, EscapeState> States = new();
         private static RunSavedData<SmokeEscapeSave> _saved = null!;
+
+        internal static bool IsLocalEscaped => CombatManager.Instance.IsInProgress &&
+                                               CombatManager.Instance.DebugOnlyGetState() is { } combat &&
+                                               States.TryGetValue(combat, out var state) &&
+                                               state.Players.Any(LocalContext.IsMe);
 
         internal static void Initialize()
         {
@@ -45,13 +44,14 @@ namespace STS2_AiACard.Utils
             };
         }
 
-        internal static bool IsEscaped(Creature creature) => creature.CombatState != null &&
-            States.TryGetValue(creature.CombatState, out var state) && state.Active &&
-            creature.Player != null && state.Players.Contains(creature.Player);
-
-        internal static bool IsLocalEscaped => CombatManager.Instance.IsInProgress &&
-            CombatManager.Instance.DebugOnlyGetState() is { } combat &&
-            States.TryGetValue(combat, out var state) && state.Players.Any(LocalContext.IsMe);
+        internal static bool IsEscaped(Creature creature)
+        {
+            return creature.CombatState != null &&
+                   States.TryGetValue(creature.CombatState, out var state) &&
+                   state.Active &&
+                   creature.Player != null &&
+                   state.Players.Contains(creature.Player);
+        }
 
         internal static void HideLocalCombatUi(NCombatUi? ui)
         {
@@ -87,6 +87,7 @@ namespace STS2_AiACard.Utils
                 data.Floor = player.RunState.TotalFloor;
                 data.NoRewards = false;
             }
+
             var state = States.GetOrAdd(combat, static _ => new());
             var listeners = combat.IterateHookListeners().Where(model => IsOwnedBy(model, player)).ToArray();
             if (player.RunState.CurrentRoom is CombatRoom room)
@@ -95,10 +96,12 @@ namespace STS2_AiACard.Utils
                     await model.AfterCombatEnd(room);
                     model.InvokeExecutionFinished();
                 }
+
             foreach (var pet in player.PlayerCombatState!.Pets.ToList())
                 await CreatureCmd.Escape(pet);
             player.AfterCombatEnd();
             state.Players.Add(player);
+            state.EscapeRounds.Add(player, combat.RoundNumber);
             player.DeactivateHooks();
             player.PlayerCombatState.Phase = PlayerTurnPhase.None;
             player.PlayerCombatState.OrbQueue.Clear();
@@ -107,11 +110,16 @@ namespace STS2_AiACard.Utils
             var node = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
             if (node != null)
             {
+#if STS2_AT_LEAST_0_113_0
+                node.SetIsInteractable(false, false);
+#else
                 node.ToggleIsInteractable(false);
+#endif
                 node.Hitbox.ReleaseFocus();
                 node.HideHoverTips();
                 await AnimateExit(node, node.Hitbox.Size.X);
             }
+
             LeaveIfNobodyRemains(combat);
             await CombatManager.Instance.CheckWinCondition();
         }
@@ -120,7 +128,7 @@ namespace STS2_AiACard.Utils
         {
             var viewport = node.GetViewportRect();
             var offscreen = node.GetCanvasTransform().AffineInverse() *
-                new Vector2(viewport.Position.X - width - 160f, 0f);
+                            new Vector2(viewport.Position.X - width - 160f, 0f);
             var tween = node.CreateTween();
             tween.TweenProperty(node, "global_position:x", offscreen.X, 0.6)
                 .SetTrans(Tween.TransitionType.Quad).SetEase(Tween.EaseType.In);
@@ -143,21 +151,36 @@ namespace STS2_AiACard.Utils
         internal static void BeginEnding()
         {
             var combat = CombatManager.Instance.DebugOnlyGetState();
-            if (combat != null && States.TryGetValue(combat, out var state))
-            {
-                state.Active = false;
-            }
+            if (combat != null && States.TryGetValue(combat, out var state)) state.Active = false;
         }
 
-        private static bool IsOwnedBy(AbstractModel model, Player player) => model switch
+        internal static async Task HealAfterEscape(Task combatEnd, ICombatState? combat)
         {
-            RelicModel relic => relic.Owner == player,
-            PotionModel potion => potion.Owner == player,
-            PowerModel power => power.Owner == player.Creature,
-            CardModel card => card.Owner == player,
-            OrbModel orb => player.PlayerCombatState!.OrbQueue.Orbs.Contains(orb),
-            _ => false
-        };
+            await combatEnd;
+            if (combat == null || !States.TryGetValue(combat, out var state))
+                return;
+            foreach (var (player, escapeRound) in state.EscapeRounds)
+            {
+                var rounds = Math.Clamp(combat.RoundNumber - escapeRound, 0, 10);
+                if (rounds > 0)
+                    await CreatureCmd.Heal(player.Creature, rounds * 3, false);
+            }
+
+            state.EscapeRounds.Clear();
+        }
+
+        private static bool IsOwnedBy(AbstractModel model, Player player)
+        {
+            return model switch
+            {
+                RelicModel relic => relic.Owner == player,
+                PotionModel potion => potion.Owner == player,
+                PowerModel power => power.Owner == player.Creature,
+                CardModel card => card.Owner == player,
+                OrbModel orb => player.PlayerCombatState!.OrbQueue.Orbs.Contains(orb),
+                _ => false,
+            };
+        }
 
         internal static void RemoveFromTurnBarriers(Player player)
         {
@@ -166,19 +189,23 @@ namespace STS2_AiACard.Utils
             var turn = typeof(CombatManager).GetField("_turnState", flags)?.GetValue(manager);
             var owner = turn ?? manager;
             var gate = owner.GetType().GetProperty("ReadyLock", flags)?.GetValue(owner) ??
-                typeof(CombatManager).GetField("_playerReadyLock", flags)?.GetValue(manager) ??
-                throw new MissingFieldException("Combat ready lock was not found.");
+                       typeof(CombatManager).GetField("_playerReadyLock", flags)?.GetValue(manager) ??
+                       throw new MissingFieldException("Combat ready lock was not found.");
             Player? readyPlayer = null;
-            if (gate is System.Threading.Lock readyLock)
-            {
+            if (gate is Lock readyLock)
                 using (readyLock.EnterScope())
+                {
                     RemoveEntries();
-            }
+                }
             else
                 lock (gate)
+                {
                     RemoveEntries();
+                }
+
             if (readyPlayer != null)
                 manager.SetReadyToEndTurn(readyPlayer, false);
+            return;
 
             void RemoveEntries()
             {
@@ -186,28 +213,36 @@ namespace STS2_AiACard.Utils
                          {
                              ("PlayersReadyToEndTurn", "_playersReadyToEndTurn"),
                              ("PlayersReadyToBeginEnemyTurn", "_playersReadyToBeginEnemyTurn"),
-                             ("PlayersTakingExtraTurn", "_playersTakingExtraTurn")
+                             ("PlayersTakingExtraTurn", "_playersTakingExtraTurn"),
                          })
                 {
                     var collection = owner.GetType().GetProperty(property, flags)?.GetValue(owner) ??
-                        owner.GetType().GetField(field, flags)?.GetValue(owner) ??
-                        throw new MissingFieldException("Combat turn membership was not found: " + property);
+                                     owner.GetType().GetField(field, flags)?.GetValue(owner) ??
+                                     throw new MissingFieldException(
+                                         "Combat turn membership was not found: " + property);
                     if (collection is ICollection<Player> players)
                         players.Remove(player);
                     else
                         throw new InvalidOperationException("Unsupported combat turn membership: " + property);
                 }
+
                 var combat = manager.DebugOnlyGetState();
-                var active = combat?.Players.Where(player => !SmokeEscape.IsEscaped(player.Creature)).ToArray();
+                var active = combat?.Players.Where(candidate => !IsEscaped(candidate.Creature)).ToArray();
                 var ready = owner.GetType().GetProperty("PlayersReadyToEndTurn", flags)?.GetValue(owner) ??
-                    owner.GetType().GetField("_playersReadyToEndTurn", flags)?.GetValue(owner);
-                if (combat?.CurrentSide == CombatSide.Player && active is { Length: > 0 } &&
-                    ready is ICollection<Player> readyPlayers && active.All(readyPlayers.Contains))
-                {
-                    readyPlayer = active[0];
-                    readyPlayers.Remove(readyPlayer);
-                }
+                            owner.GetType().GetField("_playersReadyToEndTurn", flags)?.GetValue(owner);
+                if (combat?.CurrentSide != CombatSide.Player || active is not { Length: > 0 } ||
+                    ready is not ICollection<Player> readyPlayers || !active.All(readyPlayers.Contains))
+                    return;
+                readyPlayer = active[0];
+                readyPlayers.Remove(readyPlayer);
             }
+        }
+
+        private sealed class EscapeState
+        {
+            internal bool Active = true;
+            internal HashSet<Player> Players { get; } = [];
+            internal Dictionary<Player, int> EscapeRounds { get; } = [];
         }
     }
 }
