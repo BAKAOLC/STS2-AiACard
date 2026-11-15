@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -160,12 +161,43 @@ namespace STS2_AiACard.Patches
         }
 
         // ReSharper disable InconsistentNaming
-        public static void Prefix(CombatManager __instance)
+        public static bool Prefix(CombatManager __instance, MethodBase __originalMethod, object[] __args,
+            ref Task<bool> __result)
         {
-            if (__instance.DebugOnlyGetState() is { } state)
-                SmokeEscape.LeaveIfNobodyRemains(state);
+            var combat = __instance.DebugOnlyGetState();
+            if (combat == null)
+                return true;
+#if STS2_AT_LEAST_0_113_0
+            if (__args is [CombatTurnState turnState] && turnState.State != combat)
+                return true;
+#endif
+            var withdrawal = SmokeEscape.GetWithdrawal(combat);
+            if (withdrawal == null)
+                return true;
+            __result = CheckAfterWithdrawal(withdrawal, __instance, __originalMethod, __args, combat);
+            return false;
         }
         // ReSharper restore InconsistentNaming
+
+        private static async Task<bool> CheckAfterWithdrawal(Task withdrawal, CombatManager manager,
+            MethodBase originalMethod, object[] args, ICombatState combat)
+        {
+            await withdrawal;
+            if (manager.DebugOnlyGetState() != combat)
+                return false;
+            Task<bool> check;
+            try
+            {
+                check = (Task<bool>)originalMethod.Invoke(manager, args)!;
+            }
+            catch (TargetInvocationException exception) when (exception.InnerException != null)
+            {
+                ExceptionDispatchInfo.Capture(exception.InnerException).Throw();
+                throw;
+            }
+
+            return await check;
+        }
     }
 
     public sealed class SmokeEscapeEndingPatch : IPatchMethod

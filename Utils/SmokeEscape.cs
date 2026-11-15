@@ -120,7 +120,6 @@ namespace STS2_AiACard.Utils
                 await AnimateExit(node, node.Hitbox.Size.X);
             }
 
-            LeaveIfNobodyRemains(combat);
             await CombatManager.Instance.CheckWinCondition();
         }
 
@@ -137,15 +136,22 @@ namespace STS2_AiACard.Utils
                 node.Visible = false;
         }
 
-        internal static void LeaveIfNobodyRemains(ICombatState combat)
+        internal static Task? GetWithdrawal(ICombatState combat)
         {
             if (!States.TryGetValue(combat, out var state) || !state.Active ||
                 combat.Players.Any(player => !state.Players.Contains(player) && player.Creature.CurrentHp > 0))
-                return;
+                return null;
+            if (state.Withdrawal is { IsCompletedSuccessfully: true })
+                return null;
+            return state.Withdrawal ??= WithdrawEnemies(combat);
+        }
+
+        private static async Task WithdrawEnemies(ICombatState combat)
+        {
             if (combat.RunState is RunState run)
                 _saved.Get(run).NoRewards = true;
             foreach (var enemy in combat.Enemies.ToList())
-                CreatureCmd.Escape(enemy).GetAwaiter().GetResult();
+                await CreatureCmd.Escape(enemy);
         }
 
         internal static void BeginEnding()
@@ -241,6 +247,7 @@ namespace STS2_AiACard.Utils
         private sealed class EscapeState
         {
             internal bool Active = true;
+            internal Task? Withdrawal { get; set; }
             internal HashSet<Player> Players { get; } = [];
             internal Dictionary<Player, int> EscapeRounds { get; } = [];
         }
